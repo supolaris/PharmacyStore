@@ -1,13 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 
 import {PharmacyAppColors} from '../../colors/Colors';
 
-//import HeaderTitleText from '../../ui/HeaderTitleText';
-
 import ArrowIcon from 'react-native-vector-icons/AntDesign';
 
-const PrimaryHeader = props => {
+const SecondaryHeader = props => {
   return (
     <View style={styles.container}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -18,12 +16,19 @@ const PrimaryHeader = props => {
           color={PharmacyAppColors.primaryTextColor}
         />
         <Text style={styles.titleText}>{props.title}</Text>
+
+        <Pressable style={styles.cartPressableView}>
+          <Image
+            style={styles.cartImage}
+            source={require('../../assests/images/cartVector.png')}
+          />
+        </Pressable>
       </View>
     </View>
   );
 };
 
-export default PrimaryHeader;
+export default SecondaryHeader;
 
 const styles = StyleSheet.create({
   container: {
@@ -43,5 +48,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: PharmacyAppColors.primaryTextColor,
+  },
+  cartPressableView: {
+    backgroundColor: PharmacyAppColors.white,
+    padding: 10,
+    borderRadius: 100,
+    justifyContent: 'flex-start',
+  },
+  cartImage: {
+    height: 34,
+    width: 34,
   },
 });

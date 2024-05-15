@@ -86,10 +86,12 @@ const SelectCity = () => {
       <StatusBar
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
-        //translucent={true}
       />
-      <PrimaryHeader title="Pharmacy Store" />
-      <AppCover />
+
+      <View style={{height: 300}}>
+        <PrimaryHeader title="Pharmacy Store" />
+        <AppCover />
+      </View>
 
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {
+    height: 633,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,

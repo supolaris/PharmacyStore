@@ -19,13 +19,12 @@ export default AppCover;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: PharmacyAppColors.headerColor,
-    paddingTop: 5,
     paddingLeft: 30,
     paddingBottom: 20,
     alignItems: 'center',
   },
   image: {
-    height: 230,
+    height: 210,
     width: 230,
   },
 });

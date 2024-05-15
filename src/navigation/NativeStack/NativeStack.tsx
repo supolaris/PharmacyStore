@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import SelectCityScreen from '../../screens/SelectCityScreen/SelectCityScreen';
 import SelectCatagoryScreen from '../../screens/SelectCatagoryScreen/SelectCatagoryScreen';
+import ChooseMedicineScreen from '../../screens/ChooseMedicineScreen/ChooseMedicineScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,11 @@ function MyNativeStack() {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="SelectCityScreen" component={SelectCityScreen} />
+        <Stack.Screen
+          name="ChooseMedicine_Screen"
+          component={ChooseMedicineScreen}
+        />
+        <Stack.Screen name="SelectCity_Screen" component={SelectCityScreen} />
 
         {/* <Stack.Screen
           name="SelectCatagoryScreen"
