@@ -34,12 +34,16 @@ apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
 npm i --save-dev @types/react-native-vector-icons
 ```
 
-```bash
+## Linear Gradient
 
+```bash
+npm i react-native-linear-gradient
 ```
 
-```bash
+## Responsive Screen
 
+```bash
+npm i react-native-responsive-screen
 ```
 
 ```bash

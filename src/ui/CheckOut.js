@@ -1,7 +1,17 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, FlatList, StatusBar, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  StatusBar,
+  Image,
+  Modal,
+} from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
+
+import LinearGradient from 'react-native-linear-gradient';
 
 import TertiaryHeader from '../components/headers/TertiaryHeader';
 import PrimaryButton from '../components/common/PrimaryButton';
@@ -31,6 +41,8 @@ const cartData = [
 const CheckOut = () => {
   const [productCounterValue, setProductCounterValue] = useState(1);
 
+  const [showModal, setShowModal] = useState(false);
+
   const onMinusPressed = () => {
     setProductCounterValue(prevVal => {
       if (prevVal > 1) {
@@ -47,6 +59,7 @@ const CheckOut = () => {
 
   const onCheckoutPressed = () => {
     console.log('Confirm Pressed');
+    setShowModal(true);
   };
 
   const renderCartItem = ({item}) => {
@@ -107,6 +120,67 @@ const CheckOut = () => {
         barStyle="dark-content"
       />
       <TertiaryHeader title="Check Out" />
+
+      <Modal
+        visible={showModal}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setShowModal(!showModal)}>
+        <View
+          style={{
+            justifyContent: 'center',
+            //backgroundColor: 'rgb(255,255,255, 0.9)',
+            backgroundColor: 'rgba(0, 0, 0, 0.35)',
+            alignItems: 'center',
+            height: '100%',
+          }}>
+          {/* <LinearGradient
+            style={{height: '40%', width: '90%'}}
+            colors={['#ffffff', '#000000']}> */}
+          <View
+            style={{
+              height: '40%',
+              width: '90%',
+              backgroundColor: PharmacyAppColors.white,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 10,
+            }}>
+            <Image
+              style={{height: 60, width: 60}}
+              source={require('../assests/images/modalVector.png')}
+            />
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '500',
+                color: PharmacyAppColors.primaryTextColor,
+                paddingTop: 22,
+              }}>
+              OrderPlaced
+            </Text>
+            <Text
+              style={{
+                width: '65%',
+                textAlign: 'center',
+                fontSize: 14,
+                color: '#667B99',
+                paddingTop: 12,
+                paddingBottom: 24,
+              }}>
+              Your order has been placed. You can check your order in menu
+            </Text>
+
+            <View style={{width: '60%'}}>
+              <PrimaryButton
+                onPress={() => setShowModal(false)}
+                buttonText="Close"
+              />
+            </View>
+          </View>
+          {/* </LinearGradient> */}
+        </View>
+      </Modal>
 
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
