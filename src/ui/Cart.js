@@ -1,17 +1,10 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  Image,
-  FlatList,
-  Pressable,
-} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, Image, FlatList} from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
 
 import TertiaryHeader from '../components/headers/TertiaryHeader';
+import PrimaryButton from '../components/common/PrimaryButton';
 
 import MinusIcon from 'react-native-vector-icons/Entypo';
 import PlusIcon from 'react-native-vector-icons/Entypo';
@@ -28,11 +21,21 @@ const Cart = () => {
   const [productCounterValue, setProductCounterValue] = useState(1);
 
   const onMinusPressed = () => {
-    console.log('Minus Pressed');
+    setProductCounterValue(prevVal => {
+      if (prevVal > 1) {
+        return prevVal - 1;
+      } else {
+        return prevVal;
+      }
+    });
   };
 
   const onPlusPressed = () => {
-    console.log('Plus Pressed');
+    setProductCounterValue(prevVal => prevVal + 1);
+  };
+
+  const onCheckoutPressed = () => {
+    console.log('Checkout Pressed');
   };
 
   const renderCartItem = ({item}) => {
@@ -54,8 +57,8 @@ const Cart = () => {
                 <MinusIcon
                   onPress={onMinusPressed}
                   name="minus"
-                  size={25}
-                  color="red"
+                  size={20}
+                  color="#667B99"
                 />
 
                 <Text style={styles.productCounterValueText}>
@@ -65,8 +68,8 @@ const Cart = () => {
                 <PlusIcon
                   onPress={onPlusPressed}
                   name="plus"
-                  size={25}
-                  color="red"
+                  size={20}
+                  color="#667B99"
                 />
               </View>
             </View>
@@ -95,42 +98,47 @@ const Cart = () => {
 
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
-          <View
-            style={{
-              paddingTop: 10,
-              paddingBottom: 40,
-              borderBottomWidth: 0.5,
-              borderColor: '#9BA6A7',
-            }}>
-            <FlatList
-              data={cartData}
-              renderItem={renderCartItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
-
-          <View style={styles.displayChargesView}>
-            <View style={styles.chargesPriceTextView}>
-              <Text style={styles.chargesLabelText}>Delivery Charges</Text>
-              <Text style={styles.chargesText}>
-                Rs.<Text style={styles.priceText}>200</Text>
-              </Text>
+          <View style={{flex: 3}}>
+            <View
+              style={{
+                paddingTop: 10,
+                paddingBottom: 40,
+                borderBottomWidth: 0.5,
+                borderColor: '#9BA6A7',
+              }}>
+              <FlatList
+                data={cartData}
+                renderItem={renderCartItem}
+                keyExtractor={(item, index) => index.toString()}
+              />
             </View>
-            <View style={styles.chargesPriceTextView}>
-              <Text style={styles.chargesLabelText}>GST</Text>
+
+            <View style={styles.displayChargesView}>
+              <View style={styles.chargesPriceTextView}>
+                <Text style={styles.chargesLabelText}>Delivery Charges</Text>
+                <Text style={styles.chargesText}>
+                  Rs.<Text style={styles.priceText}>200</Text>
+                </Text>
+              </View>
+              <View style={styles.chargesPriceTextView}>
+                <Text style={styles.chargesLabelText}>GST</Text>
+                <Text style={styles.chargesText}>
+                  Rs.
+                  <Text style={styles.priceText}>40</Text>
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.totalPriceTextView}>
+              <Text style={styles.chargesLabelText}>Total</Text>
               <Text style={styles.chargesText}>
                 Rs.
-                <Text style={styles.priceText}>40</Text>
+                <Text style={styles.priceText}>4040</Text>
               </Text>
             </View>
           </View>
-
-          <View style={styles.totalPriceTextView}>
-            <Text style={styles.chargesLabelText}>Total</Text>
-            <Text style={styles.chargesText}>
-              Rs.
-              <Text style={styles.priceText}>4040</Text>
-            </Text>
+          <View style={{flex: 1}}>
+            <PrimaryButton buttonText="Check Out" onPress={onCheckoutPressed} />
           </View>
         </View>
       </View>
@@ -142,6 +150,7 @@ export default Cart;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {
@@ -154,6 +163,8 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: 20,
     paddingHorizontal: 30,
+    // justifyContent: 'space-around',
+    //justifyContent: 'space-evenly',
   },
   flatlistImageView: {
     flexDirection: 'row',
@@ -197,6 +208,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productCounterValueText: {
+    fontSize: 16,
+    color: '#667B99',
     paddingHorizontal: 17,
     paddingVertical: 10,
   },
