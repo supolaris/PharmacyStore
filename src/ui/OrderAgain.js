@@ -3,11 +3,9 @@ import {View, Text, StyleSheet, StatusBar, Image, FlatList} from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
 
-import TertiaryHeader from '../components/headers/TertiaryHeader';
+import PrimaryHeader from '../components/headers/PrimaryHeader';
 import PrimaryButton from '../components/common/PrimaryButton';
-
-import MinusIcon from 'react-native-vector-icons/Entypo';
-import PlusIcon from 'react-native-vector-icons/Entypo';
+import InProgressBadge from '../components/common/InProgressBadge';
 
 const cartData = [
   {
@@ -15,27 +13,18 @@ const cartData = [
     name: 'O-ZEETINE Capsules 6/25MG',
     price: '1900',
   },
+  {
+    image: require('../assests/images/medicine1.png'),
+    name: 'O-ZEETINE Capsules 6/25MG',
+    price: '1900',
+  },
 ];
 
-const Cart = () => {
+const OrderAgain = () => {
   const [productCounterValue, setProductCounterValue] = useState(1);
 
-  const onMinusPressed = () => {
-    setProductCounterValue(prevVal => {
-      if (prevVal > 1) {
-        return prevVal - 1;
-      } else {
-        return prevVal;
-      }
-    });
-  };
-
-  const onPlusPressed = () => {
-    setProductCounterValue(prevVal => prevVal + 1);
-  };
-
-  const onCheckoutPressed = () => {
-    console.log('Checkout Pressed');
+  const onOrderAgainPressed = () => {
+    console.log('Order Again Pressed');
   };
 
   const renderCartItem = ({item}) => {
@@ -48,32 +37,6 @@ const Cart = () => {
           <Text style={styles.flatlistProductNameText}>{item.name}</Text>
 
           <View style={styles.detailsView}>
-            <View style={styles.cartImageCounterView}>
-              <Image
-                style={styles.cartImage}
-                source={require('../assests/images/cartVector.png')}
-              />
-              <View style={styles.counterView}>
-                <MinusIcon
-                  onPress={onMinusPressed}
-                  name="minus"
-                  size={20}
-                  color="#667B99"
-                />
-
-                <Text style={styles.productCounterValueText}>
-                  {productCounterValue}
-                </Text>
-
-                <PlusIcon
-                  onPress={onPlusPressed}
-                  name="plus"
-                  size={20}
-                  color="#667B99"
-                />
-              </View>
-            </View>
-
             <View style={styles.productCounterValuePriceView}>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.productPriceText}>
@@ -94,11 +57,33 @@ const Cart = () => {
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
       />
-      <TertiaryHeader title="Cart" />
+      <PrimaryHeader title="Orders" />
 
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
           <View style={{flex: 3}}>
+            <View>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text
+                  style={{
+                    fontSize: 19.26,
+                    color: PharmacyAppColors.primaryTextColor,
+                  }}>
+                  Order ID
+                </Text>
+                <InProgressBadge badgeText="In Progress" />
+              </View>
+              <Text
+                style={{
+                  fontSize: 11,
+                  paddingTop: 6,
+                  paddingBottom: 8,
+                  color: PharmacyAppColors.primaryTextColor,
+                }}>
+                124-9267-192
+              </Text>
+            </View>
             <View
               style={{
                 paddingTop: 10,
@@ -115,17 +100,8 @@ const Cart = () => {
 
             <View style={styles.displayChargesView}>
               <View style={styles.chargesPriceTextView}>
-                <Text style={styles.chargesLabelText}>Delivery Charges</Text>
-                <Text style={styles.chargesText}>
-                  Rs.<Text style={styles.priceText}>200</Text>
-                </Text>
-              </View>
-              <View style={styles.chargesPriceTextView}>
-                <Text style={styles.chargesLabelText}>GST</Text>
-                <Text style={styles.chargesText}>
-                  Rs.
-                  <Text style={styles.priceText}>40</Text>
-                </Text>
+                <Text style={styles.chargesLabelText}>Total Item</Text>
+                <Text style={styles.priceText}>2</Text>
               </View>
             </View>
 
@@ -138,7 +114,10 @@ const Cart = () => {
             </View>
           </View>
           <View style={{flex: 1}}>
-            <PrimaryButton buttonText="Check Out" onPress={onCheckoutPressed} />
+            <PrimaryButton
+              buttonText="Order Again"
+              onPress={onOrderAgainPressed}
+            />
           </View>
         </View>
       </View>
@@ -146,7 +125,7 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default OrderAgain;
 
 const styles = StyleSheet.create({
   container: {
@@ -214,12 +193,9 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   productCounterValuePriceView: {
-    //width: '50%',
-    paddingLeft: 20,
     justifyContent: 'center',
   },
   productCounterValuePriceText: {
-    //width: '50%',
     textAlign: 'center',
     color: '#9BA6A7',
     fontSize: 15,
