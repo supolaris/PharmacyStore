@@ -7,6 +7,7 @@ import ChooseMedicineScreen from '../../screens/ChooseMedicineScreen/ChooseMedic
 import CartScreen from '../../screens/CartScreen/CartScreen';
 import CheckOutScreen from '../../screens/CheckOutScreen/CheckOutScreen';
 import OrderAgainScreen from '../../screens/OrderAgainScreen/OrderAgainScreen';
+import OrderScreen from '../../screens/OrderScreen/OrderScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ function MyNativeStack() {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen name="Order_Screen" component={OrderScreen} />
         <Stack.Screen name="OrderAgain_Screen" component={OrderAgainScreen} />
         <Stack.Screen name="CheckOut_Screen" component={CheckOutScreen} />
         <Stack.Screen name="Cart_Screen" component={CartScreen} />
