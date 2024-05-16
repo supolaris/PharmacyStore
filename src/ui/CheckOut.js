@@ -295,6 +295,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     paddingBottom: 10,
+    color: PharmacyAppColors.primaryTextColor,
   },
   detailsView: {
     flexDirection: 'row',
