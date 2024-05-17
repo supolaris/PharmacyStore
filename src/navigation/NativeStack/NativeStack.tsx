@@ -18,6 +18,10 @@ function MyNativeStack() {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen
+          name="SelectCatagory_Screen"
+          component={SelectCatagoryScreen}
+        />
         <Stack.Screen name="Order_Screen" component={OrderScreen} />
         <Stack.Screen name="OrderAgain_Screen" component={OrderAgainScreen} />
         <Stack.Screen name="CheckOut_Screen" component={CheckOutScreen} />

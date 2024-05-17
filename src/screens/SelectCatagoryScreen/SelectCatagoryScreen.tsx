@@ -1,12 +1,9 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 
+import SelectCatagory from '../../ui/SelectCatagory';
+
 const SelectCatagoryScreen = () => {
-  return (
-    <View>
-      <Text>SelectCatagoryScreen</Text>
-    </View>
-  );
+  return <SelectCatagory />;
 };
 
 export default SelectCatagoryScreen;
