@@ -8,6 +8,7 @@ import CartScreen from '../../screens/CartScreen/CartScreen';
 import CheckOutScreen from '../../screens/CheckOutScreen/CheckOutScreen';
 import OrderAgainScreen from '../../screens/OrderAgainScreen/OrderAgainScreen';
 import OrderScreen from '../../screens/OrderScreen/OrderScreen';
+import ImageDescriptionScreen from '../../screens/ImageDescriptionScreen/ImageDescriptionScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,10 @@ function MyNativeStack() {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen
+          name="ImageDescription_Screen"
+          component={ImageDescriptionScreen}
+        />
         <Stack.Screen
           name="SelectCatagory_Screen"
           component={SelectCatagoryScreen}

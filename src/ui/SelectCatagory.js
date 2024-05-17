@@ -15,8 +15,6 @@ import SecondaryHeader from '../components/headers/SecondaryHeader';
 import AppCover from '../components/common/AppCover';
 import PrimaryTextInput from '../components/common/PrimaryTextInput';
 import SecondaryHeading from '../components/common/SecondaryHeading';
-import ItemAmountCard from '../components/common/ItemAmountCard';
-import CatagoryCard from '../components/common/CatagoryCard';
 
 import ArrowIcon from 'react-native-vector-icons/SimpleLineIcons';
 import ArrowDownIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -174,12 +172,10 @@ const styles = StyleSheet.create({
   },
   cityNameDropdownView: {
     flexDirection: 'row',
-    // alignItems: 'center',
     justifyContent: 'space-between',
   },
   cityNameText: {
     fontSize: 14,
-    // marginBottom: 6,
     color: PharmacyAppColors.primaryTextColor,
   },
   dropdownHeadingView: {
@@ -218,7 +214,6 @@ const styles = StyleSheet.create({
   imageBackground: {
     borderRadius: 10.96,
     overflow: 'scroll',
-    //backgroundColor: 'red',
   },
   titleArrowView: {
     height: 90,

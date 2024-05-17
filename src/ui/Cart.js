@@ -163,8 +163,6 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: 20,
     paddingHorizontal: 30,
-    // justifyContent: 'space-around',
-    //justifyContent: 'space-evenly',
   },
   flatlistImageView: {
     flexDirection: 'row',
