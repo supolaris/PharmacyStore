@@ -6,9 +6,81 @@ import {PharmacyAppColors} from '../colors/Colors';
 import PrimaryHeader from '../components/headers/PrimaryHeader';
 import PrimaryButton from '../components/common/PrimaryButton';
 import InProgressBadge from '../components/common/InProgressBadge';
+import ItemAmountCard from '../components/common/ItemAmountCard';
+import QuaternaryButton from '../components/common/QuaternaryButton';
+
+const ordersData = [
+  {
+    orderId: '124-9267-192',
+    itemTitle: 'Items',
+    itemsNumber: '2',
+    amountTitle: 'Amount',
+    amount: '4040',
+  },
+  {
+    orderId: '124-9267-192',
+    itemTitle: 'Items',
+    itemsNumber: '2',
+    amountTitle: 'Amount',
+    amount: '4040',
+  },
+];
 
 const Order = () => {
   const [productCounterValue, setProductCounterValue] = useState(1);
+
+  const renderOrderItem = ({item}) => {
+    return (
+      <View
+        style={{
+          marginBottom: 15,
+          backgroundColor: 'white',
+          elevation: 20,
+          shadowColor: '#CAD8FD',
+          paddingTop: 10,
+          //shadowOffset: {width: -50, height: 50},
+        }}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Text
+            style={{
+              fontSize: 19.26,
+              color: PharmacyAppColors.primaryTextColor,
+            }}>
+            Order ID
+          </Text>
+          <InProgressBadge badgeText="In Progress" />
+        </View>
+        <Text
+          style={{
+            fontSize: 11,
+            paddingTop: 6,
+            paddingBottom: 8,
+            color: PharmacyAppColors.primaryTextColor,
+          }}>
+          {item.orderId}
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            paddingTop: 8,
+          }}>
+          <ItemAmountCard
+            title={item.itemTitle}
+            value={'x' + item.itemsNumber}
+          />
+          <ItemAmountCard
+            title={item.amountTitle}
+            value={'Rs.' + item.amount}
+          />
+        </View>
+
+        <View style={{marginVertical: 15}}>
+          <QuaternaryButton buttonText="Order Again" />
+        </View>
+      </View>
+    );
+  };
 
   const onOrderAgainPressed = () => {
     console.log('Order Again Pressed');
@@ -25,28 +97,11 @@ const Order = () => {
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
           <View style={{flex: 3}}>
-            <View>
-              <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text
-                  style={{
-                    fontSize: 19.26,
-                    color: PharmacyAppColors.primaryTextColor,
-                  }}>
-                  Order ID
-                </Text>
-                <InProgressBadge badgeText="In Progress" />
-              </View>
-              <Text
-                style={{
-                  fontSize: 11,
-                  paddingTop: 6,
-                  paddingBottom: 8,
-                  color: PharmacyAppColors.primaryTextColor,
-                }}>
-                124-9267-192
-              </Text>
-            </View>
+            <FlatList
+              data={ordersData}
+              renderItem={renderOrderItem}
+              keyExtractor={(item, index) => index.toString()}
+            />
           </View>
           <View style={{flex: 1}}>
             <PrimaryButton

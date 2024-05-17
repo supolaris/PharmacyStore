@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   },
   touchableText: {
     textAlign: 'center',
-    fontSize: 13,
-    fontWeight: 'bold',
-    color: PharmacyAppColors.white,
+    fontSize: 15,
+    //fontWeight: 'bold',
+    color: PharmacyAppColors.primaryTextColor,
   },
 });
