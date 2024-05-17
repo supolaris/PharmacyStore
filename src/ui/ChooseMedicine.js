@@ -7,6 +7,7 @@ import {
   FlatList,
   Image,
   Pressable,
+  TouchableOpacity,
 } from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -52,7 +53,7 @@ const medicinesData = [
   },
 ];
 
-const ChooseMedicine = () => {
+const ChooseMedicine = props => {
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
 
@@ -62,7 +63,10 @@ const ChooseMedicine = () => {
   const renderMedicine = ({item}) => {
     return (
       <View style={styles.flatListView}>
-        <Image style={styles.flatListMedicineImage} source={item.image} />
+        <TouchableOpacity onPress={props.medicineSelectionPressed}>
+          <Image style={styles.flatListMedicineImage} source={item.image} />
+        </TouchableOpacity>
+
         {!flatlistCartImageOption ? (
           <Pressable
             style={styles.flatlistCartPressable}
@@ -119,7 +123,11 @@ const ChooseMedicine = () => {
         barStyle="dark-content"
       />
       <View>
-        <SecondaryHeader title="Pharmacy Store" />
+        <SecondaryHeader
+          title="Pharmacy Store"
+          onPress={props.onBackArrowPressed}
+          onCartIconPressed={props.onCartIconPressed}
+        />
         <AppCover />
       </View>
 
@@ -131,14 +139,13 @@ const ChooseMedicine = () => {
             <PrimaryTextInput placeholder="Search Medicine" />
           </View>
 
-          <View style={{marginTop: 10}}>
-            <FlatList
-              numColumns={2}
-              data={medicinesData}
-              renderItem={renderMedicine}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
+          <FlatList
+            numColumns={2}
+            data={medicinesData}
+            style={{flex: 1, height: 200}}
+            renderItem={renderMedicine}
+            keyExtractor={(item, index) => index.toString()}
+          />
         </View>
       </View>
     </View>
@@ -152,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {
-    //height: 633,
+    height: 633,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,

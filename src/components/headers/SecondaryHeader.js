@@ -10,6 +10,7 @@ const SecondaryHeader = props => {
     <View style={styles.container}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <ArrowIcon
+          onPress={props.onPress}
           style={styles.icon}
           name="arrowleft"
           size={25}
@@ -17,7 +18,9 @@ const SecondaryHeader = props => {
         />
         <Text style={styles.titleText}>{props.title}</Text>
 
-        <Pressable style={styles.cartPressableView}>
+        <Pressable
+          style={styles.cartPressableView}
+          onPress={props.onCartIconPressed}>
           <Image
             style={styles.cartImage}
             source={require('../../assests/images/cartVector.png')}

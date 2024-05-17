@@ -12,6 +12,7 @@ const PrimaryHeader = props => {
     <View style={styles.container}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <ArrowIcon
+          onPress={props.onArrowBackPressed}
           style={styles.icon}
           name="arrowleft"
           size={25}

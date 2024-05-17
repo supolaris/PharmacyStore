@@ -19,6 +19,7 @@ function MyNativeStack() {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen name="SelectCity_Screen" component={SelectCityScreen} />
         <Stack.Screen
           name="ImageDescription_Screen"
           component={ImageDescriptionScreen}
@@ -35,12 +36,6 @@ function MyNativeStack() {
           name="ChooseMedicine_Screen"
           component={ChooseMedicineScreen}
         />
-        <Stack.Screen name="SelectCity_Screen" component={SelectCityScreen} />
-
-        {/* <Stack.Screen
-          name="SelectCatagoryScreen"
-          component={SelectCatagoryScreen}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

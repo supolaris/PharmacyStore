@@ -17,7 +17,7 @@ const cartData = [
   },
 ];
 
-const Cart = () => {
+const Cart = props => {
   const [productCounterValue, setProductCounterValue] = useState(1);
 
   const onMinusPressed = () => {
@@ -94,7 +94,10 @@ const Cart = () => {
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
       />
-      <TertiaryHeader title="Cart" />
+      <TertiaryHeader
+        onBackArrowPressed={props.onBackArrowPressed}
+        title="Cart"
+      />
 
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
@@ -138,7 +141,10 @@ const Cart = () => {
             </View>
           </View>
           <View style={{flex: 1}}>
-            <PrimaryButton buttonText="Check Out" onPress={onCheckoutPressed} />
+            <PrimaryButton
+              buttonText="Check Out"
+              onPress={props.onCheckoutPressed}
+            />
           </View>
         </View>
       </View>

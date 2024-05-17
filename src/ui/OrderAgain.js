@@ -20,7 +20,7 @@ const cartData = [
   },
 ];
 
-const OrderAgain = () => {
+const OrderAgain = props => {
   const [productCounterValue, setProductCounterValue] = useState(1);
 
   const onOrderAgainPressed = () => {
@@ -57,7 +57,10 @@ const OrderAgain = () => {
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
       />
-      <PrimaryHeader title="Orders" />
+      <PrimaryHeader
+        onArrowBackPressed={props.onArrowBackPressed}
+        title="Orders"
+      />
 
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
@@ -116,7 +119,7 @@ const OrderAgain = () => {
           <View style={{flex: 1}}>
             <PrimaryButton
               buttonText="Order Again"
-              onPress={onOrderAgainPressed}
+              onPress={props.onOrderAgainPressed}
             />
           </View>
         </View>
@@ -142,8 +145,6 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: 20,
     paddingHorizontal: 30,
-    // justifyContent: 'space-around',
-    //justifyContent: 'space-evenly',
   },
   flatlistImageView: {
     flexDirection: 'row',

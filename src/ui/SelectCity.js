@@ -14,6 +14,7 @@ import PrimaryHeader from '../components/headers/PrimaryHeader';
 import AppCover from '../components/common/AppCover';
 import SecondaryHeading from '../components/common/SecondaryHeading';
 import PrimaryTextInput from '../components/common/PrimaryTextInput';
+import PrimaryButton from '../components/common/PrimaryButton';
 
 import FlatListIconActive from 'react-native-vector-icons/FontAwesome';
 import FlatListIconInActive from 'react-native-vector-icons/FontAwesome';
@@ -41,7 +42,7 @@ const citiesData = [
   },
 ];
 
-const SelectCity = () => {
+const SelectCity = props => {
   const [selectedCity, setSelectedCity] = useState('Islamabad');
 
   const renderCitties = ({item}) => {
@@ -100,14 +101,15 @@ const SelectCity = () => {
           <View style={{paddingVertical: 14}}>
             <PrimaryTextInput placeholder="Search City" />
           </View>
-
-          {/* <View style={styles.flatListView}> */}
           <FlatList
             data={citiesData}
             renderItem={renderCitties}
             keyExtractor={item => item.id.toString()}
           />
-          {/* </View> */}
+        </View>
+
+        <View style={{width: '80%', alignSelf: 'center', paddingTop: 60}}>
+          <PrimaryButton onPress={props.onPress} buttonText="Select City" />
         </View>
       </View>
     </View>
@@ -126,9 +128,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,
   },
-
   innerView: {
-    height: '100%',
     paddingTop: 20,
     paddingHorizontal: 30,
   },

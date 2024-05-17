@@ -38,7 +38,7 @@ const cartData = [
   },
 ];
 
-const CheckOut = () => {
+const CheckOut = props => {
   const [productCounterValue, setProductCounterValue] = useState(1);
 
   const [showModal, setShowModal] = useState(false);
@@ -58,8 +58,7 @@ const CheckOut = () => {
   };
 
   const onCheckoutPressed = () => {
-    console.log('Confirm Pressed');
-    setShowModal(true);
+    setShowModal(!showModal);
   };
 
   const renderCartItem = ({item}) => {
@@ -119,7 +118,10 @@ const CheckOut = () => {
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
       />
-      <TertiaryHeader title="Check Out" />
+      <TertiaryHeader
+        title="Check Out"
+        onBackArrowPressed={props.onBackArrowPressed}
+      />
 
       <Modal
         visible={showModal}
@@ -173,7 +175,7 @@ const CheckOut = () => {
 
             <View style={{width: '60%'}}>
               <PrimaryButton
-                onPress={() => setShowModal(false)}
+                onPress={props.onModalButtonPressed}
                 buttonText="Close"
               />
             </View>

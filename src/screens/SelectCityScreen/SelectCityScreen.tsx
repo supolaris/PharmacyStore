@@ -1,10 +1,16 @@
 import React from 'react';
 
 import SelectCity from '../../ui/SelectCity';
-import {Text, View} from 'react-native';
+
+import {useAppNavitaion} from '../../@types/AppNavigation';
 
 const SelectCityScreen = () => {
-  return <SelectCity />;
+  const navigation = useAppNavitaion();
+
+  const onPress = () => {
+    navigation.navigate('SelectCatagory_Screen');
+  };
+  return <SelectCity onPress={onPress} />;
 };
 
 export default SelectCityScreen;

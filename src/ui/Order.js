@@ -26,7 +26,7 @@ const ordersData = [
   },
 ];
 
-const Order = () => {
+const Order = props => {
   const [productCounterValue, setProductCounterValue] = useState(1);
 
   const renderOrderItem = ({item}) => {
@@ -92,7 +92,10 @@ const Order = () => {
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
       />
-      <PrimaryHeader title="Orders" />
+      <PrimaryHeader
+        title="Orders"
+        onArrowBackPressed={props.onArrowBackPressed}
+      />
 
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
@@ -105,8 +108,8 @@ const Order = () => {
           </View>
           <View style={{flex: 1}}>
             <PrimaryButton
-              buttonText="Order Again"
-              onPress={onOrderAgainPressed}
+              buttonText="Confirm"
+              onPress={props.onConfirmPressed}
             />
           </View>
         </View>

@@ -50,8 +50,10 @@ const medicinesData = [
   },
 ];
 
-const ImageDescription = () => {
+const ImageDescription = props => {
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
+  const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
+
   const onFlatlistCartImagePressed = () => {
     setFlatlistCartImageOption(!flatlistCartImageOption);
   };
@@ -111,7 +113,10 @@ const ImageDescription = () => {
   };
   return (
     <View style={styles.container}>
-      <TertiaryHeader title="Pharmacy Store" />
+      <TertiaryHeader
+        title="Pharmacy Store"
+        onBackArrowPressed={props.onBackArrowPressed}
+      />
 
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
@@ -129,7 +134,9 @@ const ImageDescription = () => {
                 </Text>
                 <Text style={styles.medicinePriceText}>RS 1900/-</Text>
               </View>
-              <TouchableOpacity style={styles.cartTouchable}>
+              <TouchableOpacity
+                style={styles.cartTouchable}
+                onPress={props.onAddToCartPressed}>
                 <Image
                   style={styles.cartImage}
                   source={require('../assests/images/cartVector.png')}
@@ -169,7 +176,7 @@ const styles = StyleSheet.create({
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {
-    //height: 633,
+    height: 633,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,

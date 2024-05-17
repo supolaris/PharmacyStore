@@ -11,6 +11,7 @@ const TertiaryHeader = props => {
     <View style={styles.container}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <ArrowIcon
+        onPress={props.onBackArrowPressed}
           style={styles.icon}
           name="arrowleft"
           size={35}

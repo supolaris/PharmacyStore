@@ -46,7 +46,7 @@ const catagoryCardData = [
   },
 ];
 
-const SelectCatagory = () => {
+const SelectCatagory = props => {
   const renderCatagoryCardData = ({item}) => {
     return (
       <View style={styles.flatListView}>
@@ -59,6 +59,7 @@ const SelectCatagory = () => {
 
             {/* <View style={styles.arrowView}> */}
             <ArrowIcon
+              onPress={props.onCatagoryIconPressed}
               style={styles.arrowIcon}
               name="arrow-right"
               size={15}
@@ -76,7 +77,10 @@ const SelectCatagory = () => {
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
       />
-      <SecondaryHeader title="Pharmacy Store" />
+      <SecondaryHeader
+        title="Pharmacy Store"
+        onPress={props.onBackArrowPressed}
+      />
       <AppCover />
 
       <View style={styles.belowCoverView}>
