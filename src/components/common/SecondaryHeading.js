@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16.44,
+    fontFamily: 'Satoshi-Regular',
     color: PharmacyAppColors.primaryTextColor,
   },
 });

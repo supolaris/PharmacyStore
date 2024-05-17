@@ -6,6 +6,8 @@ import {
   FlatList,
   ImageBackground,
   Image,
+  TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 
@@ -56,8 +58,6 @@ const SelectCatagory = props => {
           resizeMode="cover">
           <View style={styles.titleArrowView}>
             <Text style={styles.catagoryText}>{item.title}</Text>
-
-            {/* <View style={styles.arrowView}> */}
             <ArrowIcon
               onPress={props.onCatagoryIconPressed}
               style={styles.arrowIcon}
@@ -65,14 +65,13 @@ const SelectCatagory = props => {
               size={15}
               color="#9BA6A7"
             />
-            {/* </View> */}
           </View>
         </ImageBackground>
       </View>
     );
   };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
@@ -92,7 +91,7 @@ const SelectCatagory = props => {
               <Text style={styles.cityHeadingText}>City</Text>
               <View style={styles.cityNameDropdownView}>
                 <Text style={styles.cityNameText}>Islamabad</Text>
-                <View style={styles.dropdownHeadingView}>
+                <TouchableOpacity style={styles.dropdownHeadingView}>
                   <Text style={styles.dropdownHeadingText}>Change</Text>
                   <ArrowDownIcon
                     style={{paddingLeft: 10, paddingTop: 5}}
@@ -100,7 +99,7 @@ const SelectCatagory = props => {
                     size={10}
                     color={PharmacyAppColors.primaryTextColor}
                   />
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.orderView}>
@@ -134,7 +133,7 @@ const SelectCatagory = props => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -142,6 +141,7 @@ export default SelectCatagory;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {

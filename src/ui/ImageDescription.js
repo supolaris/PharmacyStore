@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   Pressable,
+  ScrollView,
 } from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -46,7 +47,27 @@ const medicinesData = [
   {
     image: require('../assests/images/medicine5.png'),
     name: 'O-ZEETINE Capsules 6/25MG',
-    price: '',
+    price: '2100',
+  },
+  {
+    image: require('../assests/images/medicine1.png'),
+    name: 'O-ZEETINE Capsules 6/25MG',
+    price: '1900',
+  },
+  {
+    image: require('../assests/images/medicine6.png'),
+    name: 'O-ZEETINE Capsules 6/25MG',
+    price: '1900',
+  },
+  {
+    image: require('../assests/images/medicine2.png'),
+    name: 'O-ZEETINE Capsules 6/25MG',
+    price: '2100',
+  },
+  {
+    image: require('../assests/images/medicine1.png'),
+    name: 'O-ZEETINE Capsules 6/25MG',
+    price: '1900',
   },
 ];
 
@@ -112,7 +133,7 @@ const ImageDescription = props => {
     );
   };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <TertiaryHeader
         title="Pharmacy Store"
         onBackArrowPressed={props.onBackArrowPressed}
@@ -164,7 +185,7 @@ const ImageDescription = props => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -176,7 +197,7 @@ const styles = StyleSheet.create({
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {
-    height: 633,
+    flex: 1,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,

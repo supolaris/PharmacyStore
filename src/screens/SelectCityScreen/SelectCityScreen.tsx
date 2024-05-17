@@ -10,7 +10,14 @@ const SelectCityScreen = () => {
   const onPress = () => {
     navigation.navigate('SelectCatagory_Screen');
   };
-  return <SelectCity onPress={onPress} />;
+
+  const onSelectCityPressed = () => {
+    console.log('kdfjk');
+    navigation.navigate('SelectCity_Screen');
+  };
+  return (
+    <SelectCity onPress={onPress} onSelectCityPressed={onSelectCityPressed} />
+  );
 };
 
 export default SelectCityScreen;

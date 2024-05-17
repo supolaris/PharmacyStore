@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     color: PharmacyAppColors.primaryTextColor,
     width: '90%',
+    fontFamily: 'Satoshi-Regular',
   },
   flatListIcon: {
     width: '10%',

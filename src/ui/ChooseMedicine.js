@@ -8,6 +8,7 @@ import {
   Image,
   Pressable,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -117,7 +118,7 @@ const ChooseMedicine = props => {
     );
   };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
@@ -148,7 +149,7 @@ const ChooseMedicine = props => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -156,9 +157,11 @@ export default ChooseMedicine;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {
+    flex: 1,
     height: 633,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
