@@ -1,4 +1,12 @@
-import {View, Text, StatusBar, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  FlatList,
+  ImageBackground,
+  Image,
+} from 'react-native';
 import React from 'react';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -6,8 +14,12 @@ import {PharmacyAppColors} from '../colors/Colors';
 import SecondaryHeader from '../components/headers/SecondaryHeader';
 import AppCover from '../components/common/AppCover';
 import PrimaryTextInput from '../components/common/PrimaryTextInput';
+import SecondaryHeading from '../components/common/SecondaryHeading';
 import ItemAmountCard from '../components/common/ItemAmountCard';
 import CatagoryCard from '../components/common/CatagoryCard';
+
+import ArrowIcon from 'react-native-vector-icons/SimpleLineIcons';
+import ArrowDownIcon from 'react-native-vector-icons/SimpleLineIcons';
 
 const catagoryCardData = [
   {
@@ -16,18 +28,47 @@ const catagoryCardData = [
   },
   {
     title: 'Cardio Vascular',
-    image: require('../assests/images/catagoryImages/catagoryBackgroundImage1.png'),
+    image: require('../assests/images/catagoryImages/catagoryBackgroundImage2.png'),
+  },
+  {
+    title: 'Nervous System',
+    image: require('../assests/images/catagoryImages/catagoryBackgroundImage3.png'),
+  },
+  {
+    title: 'Neurological',
+    image: require('../assests/images/catagoryImages/catagoryBackgroundImage4.png'),
+  },
+  {
+    title: 'Stomach Ache',
+    image: require('../assests/images/catagoryImages/catagoryBackgroundImage5.png'),
+  },
+  {
+    title: 'Pelvic',
+    image: require('../assests/images/catagoryImages/catagoryBackgroundImage6.png'),
   },
 ];
 
 const SelectCatagory = () => {
-  const renderCatagoryCardData = item => {
+  const renderCatagoryCardData = ({item}) => {
     return (
-      <View>
-        <View style={styles.CatagoryCardView}>
-          <CatagoryCard catagoryTitle={item.title} />
-          <CatagoryCard catagoryTitle={item.title} />
-        </View>
+      <View style={styles.flatListView}>
+        <ImageBackground
+          style={styles.imageBackground}
+          source={item.image}
+          resizeMode="cover">
+          <View style={styles.titleArrowView}>
+            <Text style={styles.catagoryText}>{item.title}</Text>
+
+            {/* <View style={styles.arrowView}> */}
+            <ArrowIcon
+              style={styles.arrowIcon}
+              name="arrow-right"
+              size={15}
+              color="#9BA6A7"
+            />
+            {/* </View> */}
+          </View>
+        </ImageBackground>
       </View>
     );
   };
@@ -44,26 +85,48 @@ const SelectCatagory = () => {
         <View style={styles.innerView}>
           <PrimaryTextInput placeholder="Search Catagory" />
 
-          {/* <View style={styles.ItemAmountCardView}>
-            <ItemAmountCard />
-            <ItemAmountCard />
-          </View> */}
+          <View style={styles.cityOrderView}>
+            <View style={styles.cityView}>
+              <Text style={styles.cityHeadingText}>City</Text>
+              <View style={styles.cityNameDropdownView}>
+                <Text style={styles.cityNameText}>Islamabad</Text>
+                <View style={styles.dropdownHeadingView}>
+                  <Text style={styles.dropdownHeadingText}>Change</Text>
+                  <ArrowDownIcon
+                    style={{paddingLeft: 10, paddingTop: 5}}
+                    name="arrow-down"
+                    size={10}
+                    color={PharmacyAppColors.primaryTextColor}
+                  />
+                </View>
+              </View>
+            </View>
+            <View style={styles.orderView}>
+              <Image
+                style={{
+                  height: 15,
+                  width: 15,
+                  marginBottom: 10,
+                }}
+                source={require('../assests/images/shopingCartVector.png')}
+              />
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: PharmacyAppColors.primaryTextColor,
+                }}>
+                My Orders
+              </Text>
+            </View>
+          </View>
 
-          {/* <View style={styles.CatagoryCardView}>
-            <CatagoryCard catagoryTitle="Digestive System" />
-            <CatagoryCard catagoryTitle="Cardio Vascular" />
+          <View style={styles.catagoryHeadingView}>
+            <SecondaryHeading title="Catagories" />
           </View>
-          <View style={styles.CatagoryCardView}>
-            <CatagoryCard catagoryTitle="Digestive System" />
-            <CatagoryCard catagoryTitle="Cardio Vascular" />
-          </View>
-          <View style={styles.CatagoryCardView}>
-            <CatagoryCard catagoryTitle="Digestive System" />
-            <CatagoryCard catagoryTitle="Cardio Vascular" />
-          </View> */}
 
           <FlatList
             data={catagoryCardData}
+            numColumns={2}
             renderItem={renderCatagoryCardData}
             keyExtractor={(item, index) => index.toString()}
           />
@@ -91,10 +154,92 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 30,
   },
+  cityOrderView: {
+    flexDirection: 'row',
+    paddingTop: 15,
+  },
+  cityView: {
+    width: '52%',
+    borderRadius: 5.32,
+    borderWidth: 1,
+    borderColor: '#9BA6A7',
+    paddingVertical: 14,
+    paddingHorizontal: 13,
+    marginRight: 10,
+  },
+  cityHeadingText: {
+    fontSize: 13,
+    color: '#667B99',
+    marginBottom: 6,
+  },
+  cityNameDropdownView: {
+    flexDirection: 'row',
+    // alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  cityNameText: {
+    fontSize: 14,
+    // marginBottom: 6,
+    color: PharmacyAppColors.primaryTextColor,
+  },
+  dropdownHeadingView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dropdownHeadingText: {
+    color: '#667B99',
+    fontSize: 12,
+  },
+  orderView: {
+    width: '45%',
+    borderRadius: 5.32,
+    borderWidth: 1,
+    borderColor: '#9BA6A7',
+    paddingVertical: 14,
+    paddingHorizontal: 13,
+  },
+  catagoryHeadingView: {
+    paddingLeft: 3,
+    paddingVertical: 15,
+  },
   ItemAmountCardView: {
     flexDirection: 'row',
   },
   CatagoryCardView: {
     flexDirection: 'row',
+  },
+
+  //
+  flatListView: {
+    width: '48%',
+    marginHorizontal: 5,
+    marginVertical: 5,
+  },
+  imageBackground: {
+    borderRadius: 10.96,
+    overflow: 'scroll',
+    //backgroundColor: 'red',
+  },
+  titleArrowView: {
+    height: 90,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    paddingTop: 20,
+    paddingVertical: 30,
+  },
+  catagoryText: {
+    width: '53%',
+    fontSize: 15.39,
+    fontWeight: '500',
+    color: PharmacyAppColors.primaryTextColor,
+  },
+  arrowView: {},
+  arrowIcon: {
+    marginTop: 10,
+    backgroundColor: 'white',
+    padding: 8,
+    borderRadius: 100,
   },
 });
