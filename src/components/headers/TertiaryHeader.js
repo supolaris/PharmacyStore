@@ -11,13 +11,15 @@ const TertiaryHeader = props => {
     <View style={styles.container}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <ArrowIcon
-        onPress={props.onBackArrowPressed}
+          onPress={props.onBackArrowPressed}
           style={styles.icon}
           name="arrowleft"
-          size={35}
+          size={25}
           color={PharmacyAppColors.primaryTextColor}
         />
-        <Text style={styles.titleText}>{props.title}</Text>
+        <View style={{flex: 1, alignItems: 'center', paddingLeft: 20}}>
+          <Text style={styles.titleText}>{props.title}</Text>
+        </View>
 
         <View style={{flexDirection: 'row'}}>
           <Pressable style={styles.searchIconPressable}>
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   titleText: {
-    //flex: 3,
     width: '60%',
     textAlign: 'center',
     fontSize: 20,
@@ -59,22 +60,20 @@ const styles = StyleSheet.create({
     color: PharmacyAppColors.primaryTextColor,
   },
   searchIconPressable: {
+    marginHorizontal: 10,
     backgroundColor: PharmacyAppColors.white,
-    // padding: 0,
-    //marginRight: 20,
     paddingHorizontal: 18,
     borderRadius: 100,
     justifyContent: 'center',
     borderWidth: 0.5,
     borderColor: 'gray',
-    //justifyContent: 'flex-start',
   },
   cartPressable: {
+    marginRight: 15,
     backgroundColor: PharmacyAppColors.white,
     padding: 10,
     borderRadius: 100,
     justifyContent: 'center',
-    //justifyContent: 'flex-start',
   },
   cartImage: {
     height: 34,

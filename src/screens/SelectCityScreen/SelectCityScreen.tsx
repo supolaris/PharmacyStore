@@ -12,7 +12,6 @@ const SelectCityScreen = () => {
   };
 
   const onSelectCityPressed = () => {
-    console.log('kdfjk');
     navigation.navigate('SelectCity_Screen');
   };
   return (

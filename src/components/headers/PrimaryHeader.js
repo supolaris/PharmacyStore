@@ -3,8 +3,6 @@ import {View, Text, StyleSheet} from 'react-native';
 
 import {PharmacyAppColors} from '../../colors/Colors';
 
-//import HeaderTitleText from '../../ui/HeaderTitleText';
-
 import ArrowIcon from 'react-native-vector-icons/AntDesign';
 
 const PrimaryHeader = props => {

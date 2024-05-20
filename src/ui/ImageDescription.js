@@ -97,17 +97,16 @@ const ImageDescription = props => {
             style={[
               styles.flatlistCartPressable,
               {flexDirection: 'row', left: '40%', alignItems: 'center'},
-            ]}
-            onPress={onFlatlistCartImagePressed}>
+            ]}>
             <Image
               style={styles.flatlistCartImage}
               source={require('../assests/images/cartVector.png')}
             />
 
             <MinusIcon
-              onPress={() => {
-                cartProductNumberCount = cartProductNumberCount + 1;
-              }}
+              onPress={() =>
+                setCartProductNumberCount(cartProductNumberCount - 1)
+              }
               style={{paddingHorizontal: 10}}
               name="minus"
               size={15}
@@ -119,6 +118,9 @@ const ImageDescription = props => {
             </Text>
 
             <PlusIcon
+              onPress={() =>
+                setCartProductNumberCount(cartProductNumberCount + 1)
+              }
               style={{paddingHorizontal: 10}}
               name="plus"
               size={18}
@@ -262,9 +264,6 @@ const styles = StyleSheet.create({
   },
   /// Flatlist
   flatListView: {
-    //flex: 1,
-    //borderRadius: 20,
-    //marginTop: 10,
     marginHorizontal: 5,
     marginBottom: 10,
   },

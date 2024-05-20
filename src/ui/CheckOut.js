@@ -131,14 +131,10 @@ const CheckOut = props => {
         <View
           style={{
             justifyContent: 'center',
-            //backgroundColor: 'rgb(255,255,255, 0.9)',
             backgroundColor: 'rgba(0, 0, 0, 0.35)',
             alignItems: 'center',
             height: '100%',
           }}>
-          {/* <LinearGradient
-            style={{height: '40%', width: '90%'}}
-            colors={['#ffffff', '#000000']}> */}
           <View
             style={{
               height: '40%',
@@ -180,7 +176,6 @@ const CheckOut = props => {
               />
             </View>
           </View>
-          {/* </LinearGradient> */}
         </View>
       </Modal>
 
@@ -329,12 +324,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   productCounterValuePriceView: {
-    //width: '50%',
     paddingLeft: 20,
     justifyContent: 'center',
   },
   productCounterValuePriceText: {
-    //width: '50%',
     textAlign: 'center',
     color: '#9BA6A7',
     fontSize: 15,

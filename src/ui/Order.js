@@ -135,8 +135,6 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: 20,
     paddingHorizontal: 30,
-    // justifyContent: 'space-around',
-    //justifyContent: 'space-evenly',
   },
   flatlistImageView: {
     flexDirection: 'row',
@@ -158,7 +156,6 @@ const styles = StyleSheet.create({
   },
   detailsView: {
     flexDirection: 'row',
-    //justifyContent: 'space-between',
   },
   cartImageCounterView: {
     width: '50%',
@@ -225,7 +222,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     borderColor: PharmacyAppColors.gray,
-    //marginHorizontal: 5,
-    //paddingBottom: 10,
   },
 });

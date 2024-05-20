@@ -50,7 +50,7 @@ const medicinesData = [
   {
     image: require('../assests/images/medicine5.png'),
     name: 'O-ZEETINE Capsules 6/25MG',
-    price: '',
+    price: '2100',
   },
 ];
 
@@ -82,17 +82,16 @@ const ChooseMedicine = props => {
             style={[
               styles.flatlistCartPressable,
               {flexDirection: 'row', left: '40%', alignItems: 'center'},
-            ]}
-            onPress={onFlatlistCartImagePressed}>
+            ]}>
             <Image
               style={styles.flatlistCartImage}
               source={require('../assests/images/cartVector.png')}
             />
 
             <MinusIcon
-              onPress={() => {
-                cartProductNumberCount = cartProductNumberCount + 1;
-              }}
+              onPress={() =>
+                setCartProductNumberCount(cartProductNumberCount - 1)
+              }
               style={{paddingHorizontal: 10}}
               name="minus"
               size={15}
@@ -104,6 +103,9 @@ const ChooseMedicine = props => {
             </Text>
 
             <PlusIcon
+              onPress={() =>
+                setCartProductNumberCount(cartProductNumberCount + 1)
+              }
               style={{paddingHorizontal: 10}}
               name="plus"
               size={18}
@@ -143,7 +145,6 @@ const ChooseMedicine = props => {
           <FlatList
             numColumns={2}
             data={medicinesData}
-            style={{flex: 1, height: 200}}
             renderItem={renderMedicine}
             keyExtractor={(item, index) => index.toString()}
           />
@@ -166,16 +167,17 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,
+    //paddingBottom: 60,
   },
   innerView: {
+    //flex: 1,
     height: '100%',
     paddingTop: 20,
     paddingHorizontal: 30,
+    //paddingBottom: 60,
   },
   flatListView: {
-    //flex: 1,
-    //borderRadius: 20,
-    //marginTop: 10,
+    // flex: 1,
     marginHorizontal: 5,
     marginBottom: 10,
   },

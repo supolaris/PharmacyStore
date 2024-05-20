@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
+import {useAppNavitaion} from '../../@types/AppNavigation';
 
 import Cart from '../../ui/Cart';
 
 const CartScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useAppNavitaion();
 
   const onBackArrowPressed = () => {
     navigation.goBack();

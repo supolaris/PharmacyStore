@@ -2,7 +2,7 @@ import React from 'react';
 
 import SelectCatagory from '../../ui/SelectCatagory';
 
-import { useAppNavitaion } from '../../@types/AppNavigation';
+import {useAppNavitaion} from '../../@types/AppNavigation';
 
 const SelectCatagoryScreen = () => {
   const navigation = useAppNavitaion();
@@ -15,10 +15,15 @@ const SelectCatagoryScreen = () => {
     navigation.navigate('ChooseMedicine_Screen');
   };
 
+  const onCartIconPressed = () => {
+    navigation.navigate('Cart_Screen');
+  };
+
   return (
     <SelectCatagory
       onBackArrowPressed={onBackArrowPressed}
       onCatagoryIconPressed={onCatagoryIconPressed}
+      onCartIconPressed={onCartIconPressed}
     />
   );
 };

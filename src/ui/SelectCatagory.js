@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   Text,
@@ -9,9 +10,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React from 'react';
 
 import {PharmacyAppColors} from '../colors/Colors';
+
+import {useAppNavitaion} from '../@types/AppNavigation';
 
 import SecondaryHeader from '../components/headers/SecondaryHeader';
 import AppCover from '../components/common/AppCover';
@@ -49,24 +51,27 @@ const catagoryCardData = [
 ];
 
 const SelectCatagory = props => {
+  const navigation = useAppNavitaion();
   const renderCatagoryCardData = ({item}) => {
     return (
       <View style={styles.flatListView}>
-        <ImageBackground
-          style={styles.imageBackground}
-          source={item.image}
-          resizeMode="cover">
-          <View style={styles.titleArrowView}>
-            <Text style={styles.catagoryText}>{item.title}</Text>
-            <ArrowIcon
-              onPress={props.onCatagoryIconPressed}
-              style={styles.arrowIcon}
-              name="arrow-right"
-              size={15}
-              color="#9BA6A7"
-            />
-          </View>
-        </ImageBackground>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ChooseMedicine_Screen')}>
+          <ImageBackground
+            style={styles.imageBackground}
+            source={item.image}
+            resizeMode="cover">
+            <View style={styles.titleArrowView}>
+              <Text style={styles.catagoryText}>{item.title}</Text>
+              <ArrowIcon
+                style={styles.arrowIcon}
+                name="arrow-right"
+                size={15}
+                color="#9BA6A7"
+              />
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -79,6 +84,7 @@ const SelectCatagory = props => {
       <SecondaryHeader
         title="Pharmacy Store"
         onPress={props.onBackArrowPressed}
+        onCartIconPressed={props.onCartIconPressed}
       />
       <AppCover />
 
@@ -91,7 +97,9 @@ const SelectCatagory = props => {
               <Text style={styles.cityHeadingText}>City</Text>
               <View style={styles.cityNameDropdownView}>
                 <Text style={styles.cityNameText}>Islamabad</Text>
-                <TouchableOpacity style={styles.dropdownHeadingView}>
+                <TouchableOpacity
+                  style={styles.dropdownHeadingView}
+                  onPress={() => navigation.navigate('SelectCity_Screen')}>
                   <Text style={styles.dropdownHeadingText}>Change</Text>
                   <ArrowDownIcon
                     style={{paddingLeft: 10, paddingTop: 5}}

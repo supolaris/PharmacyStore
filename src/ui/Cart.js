@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {
-    //height: 633,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,
@@ -190,7 +189,6 @@ const styles = StyleSheet.create({
   },
   detailsView: {
     flexDirection: 'row',
-    //justifyContent: 'space-between',
   },
   cartImageCounterView: {
     width: '50%',
@@ -219,12 +217,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   productCounterValuePriceView: {
-    //width: '50%',
     paddingLeft: 20,
     justifyContent: 'center',
   },
   productCounterValuePriceText: {
-    //width: '50%',
     textAlign: 'center',
     color: '#9BA6A7',
     fontSize: 15,
@@ -260,7 +256,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
     borderColor: PharmacyAppColors.gray,
-    //marginHorizontal: 5,
-    //paddingBottom: 10,
   },
 });
