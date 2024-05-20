@@ -11,11 +11,16 @@ const SelectCityScreen = () => {
     navigation.navigate('SelectCatagory_Screen');
   };
 
-  const onSelectCityPressed = () => {
-    navigation.navigate('SelectCity_Screen');
+  const onSelectCityPressed = cityName => {
+    //navigation.navigate('SelectCity_Screen');
+    console.log(cityName);
   };
   return (
-    <SelectCity onPress={onPress} onSelectCityPressed={onSelectCityPressed} />
+    <SelectCity
+      //onPress={onPress}
+      //onSelectCityPressed={onSelectCityPressed}
+      onSelectCityPressed={onSelectCityPressed}
+    />
   );
 };
 

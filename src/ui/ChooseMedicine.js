@@ -20,40 +20,57 @@ import PrimaryTextInput from '../components/common/PrimaryTextInput';
 import PlusIcon from 'react-native-vector-icons/Entypo';
 import MinusIcon from 'react-native-vector-icons/Entypo';
 
+import {useAppNavitaion} from '../@types/AppNavigation';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const medicinesData = [
   {
     image: require('../assests/images/medicine1.png'),
     name: 'O-ZEETINE Capsules 6/25MG',
     price: '1900',
+    description:
+      'A product that provides a guaranteed level of life takaful protection against death, of the Participant.',
   },
   {
     image: require('../assests/images/medicine6.png'),
     name: 'O-ZEETINE Capsules 6/25MG',
     price: '1900',
+    description:
+      'A product that provides a guaranteed level of life takaful protection against death, of the Participant.',
   },
   {
     image: require('../assests/images/medicine2.png'),
     name: 'O-ZEETINE Capsules 6/25MG',
     price: '2100',
+    description:
+      'A product that provides a guaranteed level of life takaful protection against death, of the Participant.',
   },
   {
     image: require('../assests/images/medicine3.png'),
     name: 'O-ZEETINE Capsules 6/25MG',
     price: '2100',
+    description:
+      'A product that provides a guaranteed level of life takaful protection against death, of the Participant.',
   },
   {
     image: require('../assests/images/medicine4.png'),
     name: 'O-ZEETINE Capsules 6/25MG',
     price: '1900',
+    description:
+      'A product that provides a guaranteed level of life takaful protection against death, of the Participant.',
   },
   {
     image: require('../assests/images/medicine5.png'),
     name: 'O-ZEETINE Capsules 6/25MG',
     price: '2100',
+    description:
+      'A product that provides a guaranteed level of life takaful protection against death, of the Participant.',
   },
 ];
 
 const ChooseMedicine = props => {
+  const navigation = useAppNavitaion();
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
 
@@ -62,9 +79,22 @@ const ChooseMedicine = props => {
   };
 
   const renderMedicine = ({item}) => {
+    const medicineSelectionPressed = async () => {
+      try {
+        await AsyncStorage.setItem('MedicineImage', JSON.stringify(item.image));
+        await AsyncStorage.setItem('MedicineName', item.name);
+        await AsyncStorage.setItem('MedicinePrice', item.price);
+        await AsyncStorage.setItem('MedicineDescription', item.description);
+        console.log('Data stored successfully');
+        navigation.navigate('ImageDescription_Screen');
+      } catch (error) {
+        console.error('Error storing image:', error);
+      }
+    };
+
     return (
       <View style={styles.flatListView}>
-        <TouchableOpacity onPress={props.medicineSelectionPressed}>
+        <TouchableOpacity onPress={medicineSelectionPressed}>
           <Image style={styles.flatListMedicineImage} source={item.image} />
         </TouchableOpacity>
 

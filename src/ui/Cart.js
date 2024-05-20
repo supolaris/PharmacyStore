@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, StyleSheet, StatusBar, Image, FlatList} from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -9,6 +9,9 @@ import PrimaryButton from '../components/common/PrimaryButton';
 import MinusIcon from 'react-native-vector-icons/Entypo';
 import PlusIcon from 'react-native-vector-icons/Entypo';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
+
 const cartData = [
   {
     image: require('../assests/images/medicine1.png'),
@@ -18,6 +21,37 @@ const cartData = [
 ];
 
 const Cart = props => {
+  const [allCartMedicines, setAllCartMedicines] = useState();
+
+  useFocusEffect(
+    useCallback(() => {
+      // AsyncStorage.removeItem('CartMedicine');
+      getCartMedicines();
+      console.log('new data: ' + allCartMedicines);
+    }, []),
+  );
+
+  // useEffect(() => {
+  //   // getCartMedicines();
+  //   AsyncStorage.removeItem('CartMedicine');
+  //   console.log('new data: ' + allCartMedicines);
+  // }, []);
+
+  const getCartMedicines = async () => {
+    //   const storedCartMedicines = await AsyncStorage.getItem('CartMedicine');
+    //   //setAllCartMedicines(storedCartMedicines);
+    //   if (storedCartMedicines) {
+    //     console.log('Stored Cart Medicines: ' + storedCartMedicines);
+    //   } else {
+    //     console.log("Medicine don't exists");
+    //   }
+    // };
+    const myData = await AsyncStorage.getItem('CartMedicine');
+    if (myData) {
+      setAllCartMedicines(JSON.parse(myData));
+      console.log('Cart Stored ' + myData);
+    }
+  };
   const [productCounterValue, setProductCounterValue] = useState(1);
 
   const onMinusPressed = () => {
@@ -34,17 +68,18 @@ const Cart = props => {
     setProductCounterValue(prevVal => prevVal + 1);
   };
 
-  const onCheckoutPressed = () => {
-    console.log('Checkout Pressed');
-  };
+  // const onCheckoutPressed = () => {
+  //   console.log('Checkout Pressed');
+  // };
 
   const renderCartItem = ({item}) => {
     return (
       <View style={{flexDirection: 'row', marginVertical: 5}}>
         <View style={styles.flatlistImageView}>
-          <Image style={styles.flatlistImage} source={item.image} />
+          <Image style={styles.flatlistImage} source={item.Image} />
         </View>
         <View style={styles.flatlistProductNameDetailsView}>
+          {console.log('Items: ' + item)}
           <Text style={styles.flatlistProductNameText}>{item.name}</Text>
 
           <View style={styles.detailsView}>
@@ -110,10 +145,11 @@ const Cart = props => {
                 borderColor: '#9BA6A7',
               }}>
               <FlatList
-                data={cartData}
+                data={allCartMedicines}
                 renderItem={renderCartItem}
                 keyExtractor={(item, index) => index.toString()}
               />
+              {/* <Text>sdfdsaf{allCartMedicines.Name}</Text> */}
             </View>
 
             <View style={styles.displayChargesView}>

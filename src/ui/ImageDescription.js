@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,12 @@ import SecondaryHeading from '../components/common/SecondaryHeading';
 
 import PlusIcon from 'react-native-vector-icons/Entypo';
 import MinusIcon from 'react-native-vector-icons/Entypo';
+
+import {useAppNavitaion} from '../@types/AppNavigation';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {useFocusEffect} from '@react-navigation/native';
 
 const medicinesData = [
   {
@@ -72,8 +78,86 @@ const medicinesData = [
 ];
 
 const ImageDescription = props => {
+  const navigation = useAppNavitaion();
+
+  const [medicineImage, setImage] = useState();
+  const [medicineName, setMedicineName] = useState();
+  const [medicinePrice, setMedicinePrice] = useState();
+  const [medicineDescription, setMedicineDescription] = useState();
+
+  const [medicineDetails, setMedicineDetails] = useState({
+    Image: '',
+    Name: '',
+    Price: '',
+    Description: '',
+  });
+
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
+
+  useEffect(() => {
+    getMedicineData();
+  }, []);
+
+  let storedMedicineImage;
+  let storedMedicineName;
+  let storedMedicinePrice;
+  let storedMedicineDescription;
+  const getMedicineData = async () => {
+    storedMedicineImage = await AsyncStorage.getItem('MedicineImage');
+    storedMedicineName = await AsyncStorage.getItem('MedicineName');
+    storedMedicinePrice = await AsyncStorage.getItem('MedicinePrice');
+    storedMedicineDescription = await AsyncStorage.getItem(
+      'MedicineDescription',
+    );
+    setImage(storedMedicineImage);
+    setMedicineName(storedMedicineName);
+    setMedicinePrice(storedMedicinePrice);
+    setMedicineDescription(storedMedicineDescription);
+  };
+
+  const onAddToCartPressed = async () => {
+    //console.log('add to cart triggered');
+    if (
+      storedMedicineName &&
+      storedMedicineImage &&
+      storedMedicinePrice &&
+      storedMedicineDescription
+    ) {
+      setMedicineDetails({
+        Image: storedMedicineImage,
+        Name: storedMedicineName,
+        Price: storedMedicinePrice,
+        Description: storedMedicineDescription,
+      });
+    }
+    // setMedicineDetails({
+    //   Image: storedMedicineImage,
+    //   Name: storedMedicineName,
+    //   Price: storedMedicinePrice,
+    //   Description: storedMedicineDescription,
+    // });
+    try {
+      await AsyncStorage.setItem(
+        'CartMedicine',
+        JSON.stringify(medicineDetails),
+      );
+      // const myData = await AsyncStorage.getItem('CartMedicine');
+      // console.log('Stored ' + myData);
+      navigation.navigate('Cart_Screen');
+    } catch (error) {
+      console.log('Error ' + error);
+    }
+
+    //const data = await AsyncStorage.getItem('CartMedicine');
+    // console.log('=============');
+    // //console.log('getdata: ' + medicineDetails.Image);
+    // console.log('getdata: ' + medicineDetails.Name);
+    // console.log('getdata: ' + medicineDetails.Price);
+    // console.log('getdata: ' + medicineDetails.Description);
+
+    //navigation.navigate('Cart_Screen');
+  };
 
   const onFlatlistCartImagePressed = () => {
     setFlatlistCartImageOption(!flatlistCartImageOption);
@@ -144,33 +228,28 @@ const ImageDescription = props => {
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
           <View style={styles.medicineImageView}>
-            <Image
-              style={styles.medicineImage}
-              source={require('../assests/images/medicine1.png')}
-            />
+            <Image style={styles.medicineImage} source={medicineImage} />
           </View>
           <View style={styles.medicineDescriptonView}>
             <View style={styles.titlePriceAddToCartView}>
               <View style={styles.titlePriceView}>
-                <Text style={styles.medicineTitleText}>
-                  O-ZEETINE Capsules 6/25MG
+                <Text style={styles.medicineTitleText}>{medicineName}</Text>
+                <Text style={styles.medicinePriceText}>
+                  RS {medicinePrice}/-
                 </Text>
-                <Text style={styles.medicinePriceText}>RS 1900/-</Text>
               </View>
               <TouchableOpacity
                 style={styles.cartTouchable}
-                onPress={props.onAddToCartPressed}>
+                onPress={onAddToCartPressed}>
                 <Image
                   style={styles.cartImage}
                   source={require('../assests/images/cartVector.png')}
                 />
                 <Text style={styles.addToCartText}>Add to cart</Text>
+                {/* <Text>{medicineDetails.Name}</Text> */}
               </TouchableOpacity>
             </View>
-            <Text style={styles.descriptionText}>
-              A product that provides a guaranteed level of life takaful
-              protection against death, of the Participant.
-            </Text>
+            <Text style={styles.descriptionText}>{medicineDescription}</Text>
           </View>
 
           <View style={{marginTop: 10}}>

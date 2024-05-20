@@ -46,6 +46,8 @@ npm i react-native-linear-gradient
 npm i react-native-responsive-screen
 ```
 
-```bash
+## Async Storage
 
+```bash
+yarn add @react-native-async-storage/async-storage
 ```

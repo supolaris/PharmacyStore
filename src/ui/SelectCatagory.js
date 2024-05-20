@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -22,6 +22,10 @@ import SecondaryHeading from '../components/common/SecondaryHeading';
 
 import ArrowIcon from 'react-native-vector-icons/SimpleLineIcons';
 import ArrowDownIcon from 'react-native-vector-icons/SimpleLineIcons';
+
+import {useFocusEffect} from '@react-navigation/native';
+import {useContext} from 'react';
+import {MyContext} from '../context/useContext';
 
 const catagoryCardData = [
   {
@@ -52,6 +56,23 @@ const catagoryCardData = [
 
 const SelectCatagory = props => {
   const navigation = useAppNavitaion();
+
+  const useCtx = useContext(MyContext);
+
+  const [getContextCityName, setGetContextCityname] = useState();
+
+  useFocusEffect(
+    useCallback(() => {
+      getData();
+    }, []),
+  );
+
+  const getData = async () => {
+    const myCityName = await useCtx.cityName;
+    setGetContextCityname(myCityName);
+    console.log('City name: ' + myCityName);
+  };
+
   const renderCatagoryCardData = ({item}) => {
     return (
       <View style={styles.flatListView}>
@@ -96,7 +117,7 @@ const SelectCatagory = props => {
             <View style={styles.cityView}>
               <Text style={styles.cityHeadingText}>City</Text>
               <View style={styles.cityNameDropdownView}>
-                <Text style={styles.cityNameText}>Islamabad</Text>
+                <Text style={styles.cityNameText}>{getContextCityName}</Text>
                 <TouchableOpacity
                   style={styles.dropdownHeadingView}
                   onPress={() => navigation.navigate('SelectCity_Screen')}>

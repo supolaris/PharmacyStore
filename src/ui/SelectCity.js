@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,7 +6,12 @@ import {
   FlatList,
   Text,
   Pressable,
+  Alert,
 } from 'react-native';
+
+import {useAppNavitaion} from '../@types/AppNavigation';
+
+import {useContext} from 'react';
 
 import {PharmacyAppColors} from '../colors/Colors';
 
@@ -18,6 +23,7 @@ import PrimaryButton from '../components/common/PrimaryButton';
 
 import FlatListIconActive from 'react-native-vector-icons/FontAwesome';
 import FlatListIconInActive from 'react-native-vector-icons/FontAwesome';
+import {MyContext} from '../context/useContext';
 
 const citiesData = [
   {
@@ -43,7 +49,26 @@ const citiesData = [
 ];
 
 const SelectCity = props => {
-  const [selectedCity, setSelectedCity] = useState('Islamabad');
+  const navigation = useAppNavitaion();
+  const useCtx = useContext(MyContext);
+  const [selectedCity, setSelectedCity] = useState();
+
+  const onSelectCityPressed = () => {
+    useCtx.cityNameFunction(selectedCity);
+    if (selectedCity) {
+      navigation.navigate('SelectCatagory_Screen');
+    } else {
+      Alert.alert('Error', 'Please select the city');
+    }
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      const myCityName = await useCtx.cityName;
+      console.log('City name: ' + myCityName);
+    };
+    getData();
+  }, []);
 
   const renderCitties = ({item}) => {
     return (
@@ -109,7 +134,11 @@ const SelectCity = props => {
         </View>
 
         <View style={{width: '80%', alignSelf: 'center', paddingTop: 60}}>
-          <PrimaryButton onPress={props.onPress} buttonText="Select City" />
+          <PrimaryButton
+            onPress={onSelectCityPressed}
+            //onPress={onSelectCityPressed}
+            buttonText="Select City"
+          />
         </View>
       </View>
     </View>
