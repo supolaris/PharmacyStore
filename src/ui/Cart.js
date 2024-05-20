@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     paddingBottom: 15,
+    fontFamily: 'Satoshi-Bold',
     color: PharmacyAppColors.primaryTextColor,
   },
   detailsView: {
@@ -226,6 +227,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   productPriceText: {
+    fontFamily: 'Satoshi-Regular',
     paddingRight: 5,
     color: '#061E40',
   },
@@ -242,9 +244,12 @@ const styles = StyleSheet.create({
   },
   chargesLabelText: {
     fontSize: 15,
+    fontFamily: 'Satoshi-Regular',
     color: '#667B99',
   },
-  chargesText: {},
+  chargesText: {
+    fontFamily: 'Satoshi-Regular',
+  },
   priceText: {
     color: PharmacyAppColors.primaryTextColor,
   },

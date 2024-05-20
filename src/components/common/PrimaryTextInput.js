@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     paddingLeft: 10,
+    fontFamily: 'Satoshi-Regular',
   },
 });

@@ -27,5 +27,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 'bold',
     color: PharmacyAppColors.white,
+    fontFamily: 'Satoshi-Bold',
   },
 });

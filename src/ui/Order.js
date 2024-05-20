@@ -27,8 +27,6 @@ const ordersData = [
 ];
 
 const Order = props => {
-  const [productCounterValue, setProductCounterValue] = useState(1);
-
   const renderOrderItem = ({item}) => {
     return (
       <View
@@ -45,6 +43,7 @@ const Order = props => {
             style={{
               fontSize: 19.26,
               color: PharmacyAppColors.primaryTextColor,
+              fontFamily: 'Satoshi-Regular',
             }}>
             Order ID
           </Text>
@@ -56,6 +55,7 @@ const Order = props => {
             paddingTop: 6,
             paddingBottom: 8,
             color: PharmacyAppColors.primaryTextColor,
+            fontFamily: 'Satoshi-Regular',
           }}>
           {item.orderId}
         </Text>
@@ -80,10 +80,6 @@ const Order = props => {
         </View>
       </View>
     );
-  };
-
-  const onOrderAgainPressed = () => {
-    console.log('Order Again Pressed');
   };
 
   return (
@@ -148,12 +144,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingTop: 5,
   },
-  flatlistProductNameText: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    paddingBottom: 15,
-    color: PharmacyAppColors.primaryTextColor,
-  },
+
   detailsView: {
     flexDirection: 'row',
   },

@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
     backgroundColor: PharmacyAppColors.headerColor,
   },
   belowCoverView: {
-    //height: 633,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,
@@ -161,6 +160,7 @@ const styles = StyleSheet.create({
   flatlistProductNameText: {
     fontSize: 15,
     fontWeight: 'bold',
+    fontFamily: 'Satoshi-Bold',
     paddingBottom: 15,
     color: PharmacyAppColors.primaryTextColor,
   },
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productCounterValueText: {
+    fontFamily: 'Satoshi-Medium',
     fontSize: 16,
     color: '#667B99',
     paddingHorizontal: 17,
@@ -202,6 +203,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   productPriceText: {
+    fontFamily: 'Satoshi-Medium',
     paddingRight: 5,
     color: '#061E40',
   },
@@ -218,9 +220,12 @@ const styles = StyleSheet.create({
   },
   chargesLabelText: {
     fontSize: 15,
+    fontFamily: 'Satoshi-Regular',
     color: '#667B99',
   },
-  chargesText: {},
+  chargesText: {
+    fontFamily: 'Satoshi-Regular',
+  },
   priceText: {
     color: PharmacyAppColors.primaryTextColor,
   },

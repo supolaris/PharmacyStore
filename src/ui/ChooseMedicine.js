@@ -8,7 +8,6 @@ import {
   Image,
   Pressable,
   TouchableOpacity,
-  ScrollView,
 } from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -61,6 +60,7 @@ const ChooseMedicine = props => {
   const onFlatlistCartImagePressed = () => {
     setFlatlistCartImageOption(!flatlistCartImageOption);
   };
+
   const renderMedicine = ({item}) => {
     return (
       <View style={styles.flatListView}>
@@ -119,8 +119,9 @@ const ChooseMedicine = props => {
       </View>
     );
   };
+
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
@@ -147,10 +148,11 @@ const ChooseMedicine = props => {
             data={medicinesData}
             renderItem={renderMedicine}
             keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={styles.flatListContent}
           />
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -163,33 +165,29 @@ const styles = StyleSheet.create({
   },
   belowCoverView: {
     flex: 1,
-    height: 633,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     backgroundColor: PharmacyAppColors.white,
-    //paddingBottom: 60,
   },
   innerView: {
-    //flex: 1,
-    height: '100%',
+    flex: 1,
     paddingTop: 20,
     paddingHorizontal: 30,
-    //paddingBottom: 60,
   },
   flatListView: {
-    // flex: 1,
+    flex: 1,
     marginHorizontal: 5,
     marginBottom: 10,
   },
   flatListMedicineImage: {
     height: 190,
-    width: 200,
+    width: '100%',
     borderRadius: 8,
   },
   flatlistCartPressable: {
     position: 'absolute',
     top: 5,
-    left: '78%',
+    right: 10,
     backgroundColor: PharmacyAppColors.white,
     padding: 8,
     borderRadius: 100,
@@ -204,11 +202,16 @@ const styles = StyleSheet.create({
     color: '#061E40',
     fontSize: 13,
     fontWeight: 'bold',
+    fontFamily: 'Satoshi-Bold',
     paddingTop: 5,
   },
   flatListMedicinePriceText: {
     color: '#667B99',
     fontSize: 15,
+    fontFamily: 'Satoshi-Medium',
     fontWeight: '500',
+  },
+  flatListContent: {
+    paddingBottom: 100,
   },
 });

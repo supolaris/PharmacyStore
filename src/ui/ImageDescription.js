@@ -230,11 +230,13 @@ const styles = StyleSheet.create({
   },
   titlePriceView: {},
   medicineTitleText: {
+    fontFamily: 'Satoshi-Bold',
     fontSize: 15,
     fontWeight: 'bold',
     color: PharmacyAppColors.primaryTextColor,
   },
   medicinePriceText: {
+    fontFamily: 'Satoshi-Medium',
     fontSize: 13,
     fontWeight: '500',
     color: '#667B99',
@@ -255,12 +257,14 @@ const styles = StyleSheet.create({
   },
   addToCartText: {
     fontSize: 13,
+    fontFamily: 'Satoshi-Regular',
     color: PharmacyAppColors.primaryTextColor,
   },
   descriptionText: {
     paddingTop: 13,
     color: '#454545',
     fontSize: 13,
+    fontFamily: 'Satoshi-Regular',
   },
   /// Flatlist
   flatListView: {

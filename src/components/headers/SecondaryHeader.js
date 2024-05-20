@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Satoshi-Bold',
     color: PharmacyAppColors.primaryTextColor,
   },
   cartPressableView: {

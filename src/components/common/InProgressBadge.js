@@ -20,5 +20,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#C17502',
+    fontFamily: 'Satoshi-Regular',
   },
 });

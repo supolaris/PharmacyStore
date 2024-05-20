@@ -42,10 +42,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
+    fontFamily: 'Satoshi-Regular',
     color: PharmacyAppColors.primaryTextColor,
   },
   value: {
     fontSize: 14,
+    fontFamily: 'Satoshi-Regular',
     color: PharmacyAppColors.primaryTextColor,
   },
 });

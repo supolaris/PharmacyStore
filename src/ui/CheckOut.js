@@ -154,6 +154,7 @@ const CheckOut = props => {
                 fontWeight: '500',
                 color: PharmacyAppColors.primaryTextColor,
                 paddingTop: 22,
+                fontFamily: 'Satoshi-Medium',
               }}>
               OrderPlaced
             </Text>
@@ -165,6 +166,7 @@ const CheckOut = props => {
                 color: '#667B99',
                 paddingTop: 12,
                 paddingBottom: 24,
+                fontFamily: 'Satoshi-Regular',
               }}>
               Your order has been placed. You can check your order in menu
             </Text>
@@ -292,6 +294,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     paddingBottom: 10,
+    fontFamily: 'Satoshi-Bold',
     color: PharmacyAppColors.primaryTextColor,
   },
   detailsView: {
@@ -333,6 +336,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   productPriceText: {
+    fontFamily: 'Satoshi-Medium',
     paddingRight: 5,
     color: '#061E40',
   },
@@ -350,14 +354,19 @@ const styles = StyleSheet.create({
   chargesLabelText: {
     fontSize: 15,
     color: '#667B99',
+    fontFamily: 'Satoshi-Regular',
   },
-  chargesText: {},
+  chargesText: {
+    fontFamily: 'Satoshi-Medium',
+  },
   priceText: {
     color: PharmacyAppColors.primaryTextColor,
+    fontFamily: 'Satoshi-Medium',
   },
   totalChargesLabelText: {
     fontSize: 15,
     color: PharmacyAppColors.primaryTextColor,
+    fontFamily: 'Satoshi-Regular',
   },
   totalPriceTextView: {
     flexDirection: 'row',

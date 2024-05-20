@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#667B99',
     marginBottom: 6,
+    fontFamily: 'Satoshi-Regular',
   },
   cityNameDropdownView: {
     flexDirection: 'row',
@@ -188,6 +189,7 @@ const styles = StyleSheet.create({
   },
   cityNameText: {
     fontSize: 14,
+    fontFamily: 'Satoshi-Regular',
     color: PharmacyAppColors.primaryTextColor,
   },
   dropdownHeadingView: {
@@ -197,6 +199,7 @@ const styles = StyleSheet.create({
   dropdownHeadingText: {
     color: '#667B99',
     fontSize: 12,
+    fontFamily: 'Satoshi-Regular',
   },
   orderView: {
     width: '45%',
@@ -239,7 +242,8 @@ const styles = StyleSheet.create({
   catagoryText: {
     width: '53%',
     fontSize: 15.39,
-    fontWeight: '500',
+    //fontWeight: '500',
+    fontFamily: 'Satoshi-Medium',
     color: PharmacyAppColors.primaryTextColor,
   },
   arrowView: {},

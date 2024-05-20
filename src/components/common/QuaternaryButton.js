@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   touchableText: {
     textAlign: 'center',
     fontSize: 15,
-    //fontWeight: 'bold',
+    fontFamily: 'Satoshi-Regular',
     color: PharmacyAppColors.primaryTextColor,
   },
 });
