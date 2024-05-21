@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -20,6 +20,9 @@ import SecondaryButton from '../components/common/SecondaryButton';
 import MinusIcon from 'react-native-vector-icons/Entypo';
 import PlusIcon from 'react-native-vector-icons/Entypo';
 
+import {useFocusEffect} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const cartData = [
   {
     image: require('../assests/images/medicine1.png'),
@@ -40,8 +43,22 @@ const cartData = [
 
 const CheckOut = props => {
   const [productCounterValue, setProductCounterValue] = useState(1);
-
   const [showModal, setShowModal] = useState(false);
+  const [allCartMedicines, setAllCartMedicines] = useState([]);
+
+  useFocusEffect(
+    useCallback(() => {
+      getCartMedicines();
+    }, []),
+  );
+
+  const getCartMedicines = async () => {
+    const myData = await AsyncStorage.getItem('combinedMedicine');
+    if (myData) {
+      let parsedData = JSON.parse(myData);
+      setAllCartMedicines(parsedData);
+    }
+  };
 
   const onMinusPressed = () => {
     setProductCounterValue(prevVal => {
@@ -65,10 +82,10 @@ const CheckOut = props => {
     return (
       <View style={{flexDirection: 'row', marginVertical: 5}}>
         <View style={styles.flatlistImageView}>
-          <Image style={styles.flatlistImage} source={item.image} />
+          <Image style={styles.flatlistImage} source={item.pImage} />
         </View>
         <View style={styles.flatlistProductNameDetailsView}>
-          <Text style={styles.flatlistProductNameText}>{item.name}</Text>
+          <Text style={styles.flatlistProductNameText}>{item.pName}</Text>
 
           <View style={styles.detailsView}>
             <View style={styles.cartImageCounterView}>
@@ -103,7 +120,7 @@ const CheckOut = props => {
                   {productCounterValue}x
                 </Text>
 
-                <Text style={styles.productPriceText}>Rs {item.price}/-</Text>
+                <Text style={styles.productPriceText}>Rs {item.pPrice}/-</Text>
               </View>
             </View>
           </View>
@@ -184,55 +201,51 @@ const CheckOut = props => {
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
           <View style={{flex: 3}}>
-            <View
-              style={{
-                paddingTop: 10,
-                paddingBottom: 20,
-                borderBottomWidth: 0.5,
-                borderColor: '#9BA6A7',
-              }}>
+            <View style={styles.flatListView}>
               <FlatList
-                data={cartData}
+                data={allCartMedicines}
                 renderItem={renderCartItem}
                 keyExtractor={(item, index) => index.toString()}
               />
             </View>
 
-            <View style={styles.displayChargesView}>
-              <View style={styles.chargesPriceTextView}>
-                <Text style={styles.chargesLabelText}>Delivery Charges</Text>
-                <Text style={styles.chargesText}>
-                  Rs.<Text style={styles.priceText}>200</Text>
-                </Text>
+            <View style={styles.belowFlatlistView}>
+              <View style={styles.displayChargesView}>
+                <View style={styles.chargesPriceTextView}>
+                  <Text style={styles.chargesLabelText}>Delivery Charges</Text>
+                  <Text style={styles.chargesText}>
+                    Rs.<Text style={styles.priceText}>200</Text>
+                  </Text>
+                </View>
+                <View style={styles.chargesPriceTextView}>
+                  <Text style={styles.chargesLabelText}>GST</Text>
+                  <Text style={styles.chargesText}>
+                    Rs.
+                    <Text style={styles.priceText}>40</Text>
+                  </Text>
+                </View>
               </View>
-              <View style={styles.chargesPriceTextView}>
-                <Text style={styles.chargesLabelText}>GST</Text>
+
+              <View style={styles.totalPriceTextView}>
+                <Text style={styles.totalChargesLabelText}>Total</Text>
                 <Text style={styles.chargesText}>
                   Rs.
-                  <Text style={styles.priceText}>40</Text>
+                  <Text style={styles.priceText}>4040</Text>
                 </Text>
               </View>
-            </View>
 
-            <View style={styles.totalPriceTextView}>
-              <Text style={styles.totalChargesLabelText}>Total</Text>
-              <Text style={styles.chargesText}>
-                Rs.
-                <Text style={styles.priceText}>4040</Text>
-              </Text>
-            </View>
-
-            {/* delivery address */}
-            <View style={styles.displayChargesView}>
-              <View style={styles.chargesPriceTextView}>
-                <Text style={styles.chargesLabelText}>Delivery Address</Text>
-                <Text style={styles.chargesText}>Islamabad</Text>
-              </View>
-              <View style={styles.chargesPriceTextView}>
-                <Text style={[styles.chargesLabelText, {width: '70%'}]}>
-                  Office #7 2nd Floor Plaza 2000, I-8 Markaz Islamabad
-                </Text>
-                <SecondaryButton touchableText="Change Address" />
+              {/* delivery address */}
+              <View style={styles.displayChargesView}>
+                <View style={styles.chargesPriceTextView}>
+                  <Text style={styles.chargesLabelText}>Delivery Address</Text>
+                  <Text style={styles.chargesText}>Islamabad</Text>
+                </View>
+                <View style={styles.chargesPriceTextView}>
+                  <Text style={[styles.chargesLabelText, {width: '70%'}]}>
+                    Office #7 2nd Floor Plaza 2000, I-8 Markaz Islamabad
+                  </Text>
+                  <SecondaryButton touchableText="Change Address" />
+                </View>
               </View>
             </View>
 
@@ -277,6 +290,13 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: 20,
     paddingHorizontal: 30,
+  },
+  flatListView: {
+    flex: 1.8,
+    paddingTop: 10,
+    paddingBottom: 20,
+    borderBottomWidth: 0.5,
+    borderColor: '#9BA6A7',
   },
   flatlistImageView: {
     flexDirection: 'row',
@@ -341,6 +361,9 @@ const styles = StyleSheet.create({
     color: '#061E40',
   },
   //below flatlist
+  belowFlatlistView: {
+    flex: 2,
+  },
   displayChargesView: {
     paddingTop: 10,
     paddingBottom: 20,

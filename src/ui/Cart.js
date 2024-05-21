@@ -122,13 +122,7 @@ const Cart = props => {
       <View style={styles.belowCoverView}>
         <View style={styles.innerView}>
           <View style={{flex: 3}}>
-            <View
-              style={{
-                paddingTop: 10,
-                paddingBottom: 40,
-                borderBottomWidth: 0.5,
-                borderColor: '#9BA6A7',
-              }}>
+            <View style={styles.flatListView}>
               <FlatList
                 data={allCartMedicines}
                 renderItem={renderCartItem}
@@ -136,29 +130,30 @@ const Cart = props => {
               />
               {/* <Text>sdfdsaf{allCartMedicines.Name}</Text> */}
             </View>
-
-            <View style={styles.displayChargesView}>
-              <View style={styles.chargesPriceTextView}>
-                <Text style={styles.chargesLabelText}>Delivery Charges</Text>
-                <Text style={styles.chargesText}>
-                  Rs.<Text style={styles.priceText}>200</Text>
-                </Text>
+            <View style={styles.belowFlatlistView}>
+              <View style={styles.displayChargesView}>
+                <View style={styles.chargesPriceTextView}>
+                  <Text style={styles.chargesLabelText}>Delivery Charges</Text>
+                  <Text style={styles.chargesText}>
+                    Rs.<Text style={styles.priceText}>200</Text>
+                  </Text>
+                </View>
+                <View style={styles.chargesPriceTextView}>
+                  <Text style={styles.chargesLabelText}>GST</Text>
+                  <Text style={styles.chargesText}>
+                    Rs.
+                    <Text style={styles.priceText}>40</Text>
+                  </Text>
+                </View>
               </View>
-              <View style={styles.chargesPriceTextView}>
-                <Text style={styles.chargesLabelText}>GST</Text>
+
+              <View style={styles.totalPriceTextView}>
+                <Text style={styles.chargesLabelText}>Total</Text>
                 <Text style={styles.chargesText}>
                   Rs.
-                  <Text style={styles.priceText}>40</Text>
+                  <Text style={styles.priceText}>4040</Text>
                 </Text>
               </View>
-            </View>
-
-            <View style={styles.totalPriceTextView}>
-              <Text style={styles.chargesLabelText}>Total</Text>
-              <Text style={styles.chargesText}>
-                Rs.
-                <Text style={styles.priceText}>4040</Text>
-              </Text>
             </View>
           </View>
           <View style={{flex: 1}}>
@@ -189,6 +184,13 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: 20,
     paddingHorizontal: 30,
+  },
+  flatListView: {
+    flex: 1.8,
+    paddingTop: 10,
+    paddingBottom: 40,
+    borderBottomWidth: 0.5,
+    borderColor: '#9BA6A7',
   },
   flatlistImageView: {
     flexDirection: 'row',
@@ -253,6 +255,9 @@ const styles = StyleSheet.create({
     color: '#061E40',
   },
   //below flatlist
+  belowFlatlistView: {
+    flex: 2,
+  },
   displayChargesView: {
     paddingTop: 10,
     paddingBottom: 70,

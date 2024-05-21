@@ -26,7 +26,9 @@ const TertiaryHeader = props => {
             <SearchIcon name="search1" size={15} />
           </Pressable>
 
-          <Pressable style={styles.cartPressable}>
+          <Pressable
+            style={styles.cartPressable}
+            onPress={props.onCartImagePressed}>
             <Image
               style={styles.cartImage}
               source={require('../../assests/images/cartVector.png')}

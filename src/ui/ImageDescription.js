@@ -231,6 +231,7 @@ const ImageDescription = props => {
     <ScrollView style={styles.container}>
       <TertiaryHeader
         title="Pharmacy Store"
+        onCartImagePressed={props.onCartImagePressed}
         onBackArrowPressed={props.onBackArrowPressed}
       />
 
