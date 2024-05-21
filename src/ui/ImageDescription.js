@@ -85,19 +85,8 @@ const ImageDescription = props => {
   const [medicinePrice, setMedicinePrice] = useState();
   const [medicineDescription, setMedicineDescription] = useState();
 
-  const [medicineDetails, setMedicineDetails] = useState({
-    Image: '',
-    Name: '',
-    Price: '',
-    Description: '',
-  });
-
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
-
-  // useEffect(() => {
-  //   getMedicineData();
-  // }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -122,50 +111,39 @@ const ImageDescription = props => {
     setMedicineDescription(storedMedicineDescription);
   };
 
+  let productDetails = {
+    pImage: '',
+    pName: '',
+    pPrice: '',
+    pDescription: '',
+  };
+
   const onAddToCartPressed = async () => {
-    //console.log('add to cart triggered');
     if (medicineImage && medicineName && medicinePrice && medicineDescription) {
-      setMedicineDetails({
-        Image: medicineImage,
-        Name: medicineName,
-        Price: medicinePrice,
-        Description: medicineDescription,
-      });
-      // console.log(
-      //   'this is console log of on press' +
-      //     JSON.stringify({
-      //       Image: medicineImage,
-      //       Name: medicineName,
-      //       Price: medicinePrice,
-      //       Description: medicineDescription,
-      //     }),
-      // );
+      productDetails = {
+        pImage: medicineImage,
+        pName: medicineName,
+        pPrice: medicinePrice,
+        pDescription: medicineDescription,
+      };
     }
-    // setMedicineDetails({
-    //   Image: storedMedicineImage,
-    //   Name: storedMedicineName,
-    //   Price: storedMedicinePrice,
-    //   Description: storedMedicineDescription,
-    // });
     try {
       await AsyncStorage.setItem(
         'CartMedicine',
-        JSON.stringify(medicineDetails),
+        JSON.stringify(productDetails),
       );
-      //.then(navigation.navigate('Cart_Screen'))
-      const myData = await AsyncStorage.getItem('CartMedicine');
-      console.log('Stored Data' + myData);
+      //const myData = await AsyncStorage.getItem('CartMedicine');
+      //console.log('Stored Data' + myData);
+      navigation.navigate('Cart_Screen');
     } catch (error) {
       console.log('Error ' + error);
     }
 
-    //const data = await AsyncStorage.getItem('CartMedicine');
     // console.log('=============');
-    // //console.log('getdata: ' + medicineDetails.Image);
-    // console.log('getdata Name: ' + medicineDetails.Name);
-    // console.log('getdata Price: ' + medicineDetails.Price);
-    // console.log('getdata Description: ' + medicineDetails.Description);
-
+    // console.log('getdata: ' + productDetails.pImage);
+    // console.log('getdata Name: ' + productDetails.pName);
+    // console.log('getdata Price: ' + productDetails.pPrice);
+    // console.log('getdata Description: ' + productDetails.pDescription);
     //navigation.navigate('Cart_Screen');
   };
 

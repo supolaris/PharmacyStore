@@ -21,38 +21,24 @@ const cartData = [
 ];
 
 const Cart = props => {
-  const [allCartMedicines, setAllCartMedicines] = useState();
+  const [allCartMedicines, setAllCartMedicines] = useState([]);
+  const [productCounterValue, setProductCounterValue] = useState(1);
 
   useFocusEffect(
     useCallback(() => {
-      // AsyncStorage.removeItem('CartMedicine');
+      //AsyncStorage.removeItem('CartMedicine');
       getCartMedicines();
-      console.log('new data: ' + allCartMedicines);
     }, []),
   );
 
-  // useEffect(() => {
-  //   // getCartMedicines();
-  //   AsyncStorage.removeItem('CartMedicine');
-  //   console.log('new data: ' + allCartMedicines);
-  // }, []);
-
   const getCartMedicines = async () => {
-    //   const storedCartMedicines = await AsyncStorage.getItem('CartMedicine');
-    //   //setAllCartMedicines(storedCartMedicines);
-    //   if (storedCartMedicines) {
-    //     console.log('Stored Cart Medicines: ' + storedCartMedicines);
-    //   } else {
-    //     console.log("Medicine don't exists");
-    //   }
-    // };
     const myData = await AsyncStorage.getItem('CartMedicine');
     if (myData) {
-      setAllCartMedicines(JSON.parse(myData));
-      console.log('Cart Stored ' + myData);
+      let dataArray = [];
+      dataArray.push(JSON.parse(myData));
+      setAllCartMedicines(dataArray);
     }
   };
-  const [productCounterValue, setProductCounterValue] = useState(1);
 
   const onMinusPressed = () => {
     setProductCounterValue(prevVal => {
@@ -76,11 +62,11 @@ const Cart = props => {
     return (
       <View style={{flexDirection: 'row', marginVertical: 5}}>
         <View style={styles.flatlistImageView}>
-          <Image style={styles.flatlistImage} source={item.Image} />
+          <Image style={styles.flatlistImage} source={item.pImage} />
         </View>
         <View style={styles.flatlistProductNameDetailsView}>
-          {console.log('Items: ' + item)}
-          <Text style={styles.flatlistProductNameText}>{item.name}</Text>
+          {/* {console.log('Items: ' + item)} */}
+          <Text style={styles.flatlistProductNameText}>{item.pName}</Text>
 
           <View style={styles.detailsView}>
             <View style={styles.cartImageCounterView}>
@@ -115,7 +101,7 @@ const Cart = props => {
                   {productCounterValue}x
                 </Text>
 
-                <Text style={styles.productPriceText}>Rs {item.price}/-</Text>
+                <Text style={styles.productPriceText}>Rs {item.pPrice}/-</Text>
               </View>
             </View>
           </View>
