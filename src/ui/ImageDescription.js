@@ -88,8 +88,11 @@ const ImageDescription = props => {
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
 
+  const [medicineArray, setMedicineArray] = useState([]);
+
   useFocusEffect(
     useCallback(() => {
+      //AsyncStorage.removeItem('combinedMedicine');
       getMedicineData();
     }, []),
   );
@@ -128,13 +131,39 @@ const ImageDescription = props => {
       };
     }
     try {
-      await AsyncStorage.setItem(
-        'CartMedicine',
-        JSON.stringify(productDetails),
+      const previousMedicineData = await AsyncStorage.getItem(
+        'combinedMedicine',
       );
+
+      if (previousMedicineData !== '' && previousMedicineData !== null) {
+        const parsed = JSON.parse(previousMedicineData);
+        console.log('============');
+        console.log('CartMedicine: ' + parsed);
+        console.log('ProductDetails: ' + productDetails);
+        console.log('============');
+
+        const combine = [...parsed, productDetails];
+        console.log('combine' + combine);
+
+        await AsyncStorage.setItem('combinedMedicine', JSON.stringify(combine));
+        const combinedAsync = await AsyncStorage.getItem('combinedMedicine');
+        console.log('CombinedAsyn', combinedAsync);
+      } else {
+        setMedicineArray([]);
+        const combine = [...medicineArray, productDetails];
+        await AsyncStorage.setItem('combinedMedicine', JSON.stringify(combine));
+      }
+
+      //    await AsyncStorage.setItem('CartMedicine', newValues);
+      // } else {
+      //    await AsyncStorage.setItem('CartMedicine', productDetails);
+      //} else {
+      //console.log('erorr');
+      //}
+
       //const myData = await AsyncStorage.getItem('CartMedicine');
       //console.log('Stored Data' + myData);
-      navigation.navigate('Cart_Screen');
+      //navigation.navigate('Cart_Screen');
     } catch (error) {
       console.log('Error ' + error);
     }
