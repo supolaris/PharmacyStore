@@ -25,9 +25,11 @@ const Cart = props => {
   const [productCounterValue, setProductCounterValue] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const [cartProducts, setCartProducts] = useState([]);
+
   useFocusEffect(
     useCallback(() => {
-      //AsyncStorage.removeItem('CartMedicine');
+      //AsyncStorage.removeItem('combinedMedicine');
       getCartMedicines();
     }, []),
   );
@@ -36,6 +38,9 @@ const Cart = props => {
     const myData = await AsyncStorage.getItem('combinedMedicine');
     if (myData) {
       let parsedData = JSON.parse(myData);
+      //console.log('first', parsedData);
+      setCartProducts(parsedData);
+      console.log('cartProducts', cartProducts);
 
       //Calculating total number of products in a cart
       let TotalNumberOfProductsInCart = parsedData.length;

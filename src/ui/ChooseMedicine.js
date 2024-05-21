@@ -88,6 +88,7 @@ const ChooseMedicine = props => {
   const renderMedicine = ({item}) => {
     const medicineSelectionPressed = async () => {
       try {
+        await AsyncStorage.setItem('MedicineId', JSON.stringify(item.id));
         await AsyncStorage.setItem('MedicineImage', JSON.stringify(item.image));
         await AsyncStorage.setItem('MedicineName', item.name);
         await AsyncStorage.setItem('MedicinePrice', item.price);

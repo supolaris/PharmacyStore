@@ -78,6 +78,7 @@ const medicinesData = [
 const ImageDescription = props => {
   const navigation = useAppNavitaion();
 
+  const [medicineId, setMedicineId] = useState();
   const [medicineImage, setImage] = useState();
   const [medicineName, setMedicineName] = useState();
   const [medicinePrice, setMedicinePrice] = useState();
@@ -90,22 +91,25 @@ const ImageDescription = props => {
 
   useFocusEffect(
     useCallback(() => {
-      //AsyncStorage.removeItem('combinedMedicine');
+      // AsyncStorage.removeItem('combinedMedicine');
       getMedicineData();
     }, []),
   );
 
+  let storedMedicineId;
   let storedMedicineImage;
   let storedMedicineName;
   let storedMedicinePrice;
   let storedMedicineDescription;
   const getMedicineData = async () => {
+    storedMedicineId = await AsyncStorage.getItem('MedicineId');
     storedMedicineImage = await AsyncStorage.getItem('MedicineImage');
     storedMedicineName = await AsyncStorage.getItem('MedicineName');
     storedMedicinePrice = await AsyncStorage.getItem('MedicinePrice');
     storedMedicineDescription = await AsyncStorage.getItem(
       'MedicineDescription',
     );
+    setMedicineId(storedMedicineId);
     setImage(storedMedicineImage);
     setMedicineName(storedMedicineName);
     setMedicinePrice(storedMedicinePrice);
@@ -113,6 +117,7 @@ const ImageDescription = props => {
   };
 
   let productDetails = {
+    pId: '',
     pImage: '',
     pName: '',
     pPrice: '',
@@ -120,8 +125,15 @@ const ImageDescription = props => {
   };
 
   const onAddToCartPressed = async () => {
-    if (medicineImage && medicineName && medicinePrice && medicineDescription) {
+    if (
+      medicineId &&
+      medicineImage &&
+      medicineName &&
+      medicinePrice &&
+      medicineDescription
+    ) {
       productDetails = {
+        pId: medicineId,
         pImage: medicineImage,
         pName: medicineName,
         pPrice: medicinePrice,
