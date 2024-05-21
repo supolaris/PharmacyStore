@@ -148,21 +148,13 @@ const ImageDescription = props => {
         await AsyncStorage.setItem('combinedMedicine', JSON.stringify(combine));
         const combinedAsync = await AsyncStorage.getItem('combinedMedicine');
         console.log('CombinedAsyn', combinedAsync);
+        navigation.navigate('Cart_Screen');
       } else {
         setMedicineArray([]);
         const combine = [...medicineArray, productDetails];
         await AsyncStorage.setItem('combinedMedicine', JSON.stringify(combine));
+        navigation.navigate('Cart_Screen');
       }
-
-      //    await AsyncStorage.setItem('CartMedicine', newValues);
-      // } else {
-      //    await AsyncStorage.setItem('CartMedicine', productDetails);
-      //} else {
-      //console.log('erorr');
-      //}
-
-      //const myData = await AsyncStorage.getItem('CartMedicine');
-      //console.log('Stored Data' + myData);
       //navigation.navigate('Cart_Screen');
     } catch (error) {
       console.log('Error ' + error);

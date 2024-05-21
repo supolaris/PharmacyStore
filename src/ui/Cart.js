@@ -32,11 +32,10 @@ const Cart = props => {
   );
 
   const getCartMedicines = async () => {
-    const myData = await AsyncStorage.getItem('CartMedicine');
+    const myData = await AsyncStorage.getItem('combinedMedicine');
     if (myData) {
-      let dataArray = [];
-      dataArray.push(JSON.parse(myData));
-      setAllCartMedicines(dataArray);
+      let parsedData = JSON.parse(myData);
+      setAllCartMedicines(parsedData);
     }
   };
 
