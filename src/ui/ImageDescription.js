@@ -95,9 +95,15 @@ const ImageDescription = props => {
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
 
-  useEffect(() => {
-    getMedicineData();
-  }, []);
+  // useEffect(() => {
+  //   getMedicineData();
+  // }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      getMedicineData();
+    }, []),
+  );
 
   let storedMedicineImage;
   let storedMedicineName;
@@ -118,18 +124,22 @@ const ImageDescription = props => {
 
   const onAddToCartPressed = async () => {
     //console.log('add to cart triggered');
-    if (
-      storedMedicineName &&
-      storedMedicineImage &&
-      storedMedicinePrice &&
-      storedMedicineDescription
-    ) {
+    if (medicineImage && medicineName && medicinePrice && medicineDescription) {
       setMedicineDetails({
-        Image: storedMedicineImage,
-        Name: storedMedicineName,
-        Price: storedMedicinePrice,
-        Description: storedMedicineDescription,
+        Image: medicineImage,
+        Name: medicineName,
+        Price: medicinePrice,
+        Description: medicineDescription,
       });
+      // console.log(
+      //   'this is console log of on press' +
+      //     JSON.stringify({
+      //       Image: medicineImage,
+      //       Name: medicineName,
+      //       Price: medicinePrice,
+      //       Description: medicineDescription,
+      //     }),
+      // );
     }
     // setMedicineDetails({
     //   Image: storedMedicineImage,
@@ -142,9 +152,9 @@ const ImageDescription = props => {
         'CartMedicine',
         JSON.stringify(medicineDetails),
       );
-      // const myData = await AsyncStorage.getItem('CartMedicine');
-      // console.log('Stored ' + myData);
-      navigation.navigate('Cart_Screen');
+      //.then(navigation.navigate('Cart_Screen'))
+      const myData = await AsyncStorage.getItem('CartMedicine');
+      console.log('Stored Data' + myData);
     } catch (error) {
       console.log('Error ' + error);
     }
@@ -152,9 +162,9 @@ const ImageDescription = props => {
     //const data = await AsyncStorage.getItem('CartMedicine');
     // console.log('=============');
     // //console.log('getdata: ' + medicineDetails.Image);
-    // console.log('getdata: ' + medicineDetails.Name);
-    // console.log('getdata: ' + medicineDetails.Price);
-    // console.log('getdata: ' + medicineDetails.Description);
+    // console.log('getdata Name: ' + medicineDetails.Name);
+    // console.log('getdata Price: ' + medicineDetails.Price);
+    // console.log('getdata Description: ' + medicineDetails.Description);
 
     //navigation.navigate('Cart_Screen');
   };
