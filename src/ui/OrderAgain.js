@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, Text, StyleSheet, StatusBar, Image, FlatList} from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -6,6 +6,9 @@ import {PharmacyAppColors} from '../colors/Colors';
 import PrimaryHeader from '../components/headers/PrimaryHeader';
 import PrimaryButton from '../components/common/PrimaryButton';
 import InProgressBadge from '../components/common/InProgressBadge';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
 
 const cartData = [
   {
@@ -22,6 +25,23 @@ const cartData = [
 
 const OrderAgain = props => {
   const [productCounterValue, setProductCounterValue] = useState(1);
+
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalProductInCart, setTotalProductInCart] = useState(0);
+
+  useFocusEffect(useCallback(() => {}, []));
+
+  const getCartMedicines = async () => {
+    //Getting Total Price of medicines in a cart
+    const TotalPrice = await AsyncStorage.getItem('TotalMedicinePriceInCart');
+    setTotalPrice(JSON.parse(TotalPrice) + 20 + 200);
+
+    //Getting Total number of products in cart
+    const TotalProcutsInCarts = await AsyncStorage.getItem(
+      'TotalNumberOfProductsInCart',
+    );
+    setTotalProductInCart(JSON.parse(TotalProcutsInCarts));
+  };
 
   const onOrderAgainPressed = () => {
     console.log('Order Again Pressed');
@@ -59,7 +79,7 @@ const OrderAgain = props => {
       />
       <PrimaryHeader
         onArrowBackPressed={props.onArrowBackPressed}
-        title="Orders"
+        title="Orders Again"
       />
 
       <View style={styles.belowCoverView}>

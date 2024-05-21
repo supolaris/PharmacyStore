@@ -15,10 +15,14 @@ const CheckOutScreen = () => {
   const onModalButtonPressed = () => {
     navigation.navigate('Order_Screen');
   };
+  const onCartImagePressed = () => {
+    navigation.navigate('Cart_Screen');
+  };
   return (
     <CheckOut
       onBackArrowPressed={onBackArrowPressed}
       onModalButtonPressed={onModalButtonPressed}
+      onCartImagePressed={onCartImagePressed}
     />
   );
 };

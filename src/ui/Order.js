@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {View, Text, StyleSheet, StatusBar, Image, FlatList} from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -8,6 +8,9 @@ import PrimaryButton from '../components/common/PrimaryButton';
 import InProgressBadge from '../components/common/InProgressBadge';
 import ItemAmountCard from '../components/common/ItemAmountCard';
 import QuaternaryButton from '../components/common/QuaternaryButton';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
 
 const ordersData = [
   {
@@ -27,6 +30,29 @@ const ordersData = [
 ];
 
 const Order = props => {
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [totalProductsAmount, setTotalProductsAmount] = useState(0);
+
+  useFocusEffect(
+    useCallback(() => {
+      getCartOrderData();
+    }, []),
+  );
+
+  const getCartOrderData = async () => {
+    //Get total number of products
+    const TotalProducts = await AsyncStorage.getItem(
+      'TotalNumberOfProductsInCart',
+    );
+    setTotalProducts(JSON.parse(TotalProducts));
+
+    //Get total amount of products
+    const TotalProductsAmount = await AsyncStorage.getItem(
+      'TotalMedicinePriceInCart',
+    );
+    setTotalProductsAmount(JSON.parse(TotalProductsAmount));
+  };
+
   const renderOrderItem = ({item}) => {
     return (
       <View
@@ -65,13 +91,10 @@ const Order = props => {
             justifyContent: 'center',
             paddingTop: 8,
           }}>
-          <ItemAmountCard
-            title={item.itemTitle}
-            value={'x' + item.itemsNumber}
-          />
+          <ItemAmountCard title={item.itemTitle} value={'x' + totalProducts} />
           <ItemAmountCard
             title={item.amountTitle}
-            value={'Rs.' + item.amount}
+            value={'Rs.' + totalProductsAmount}
           />
         </View>
 

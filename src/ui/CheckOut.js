@@ -46,6 +46,8 @@ const CheckOut = props => {
   const [showModal, setShowModal] = useState(false);
   const [allCartMedicines, setAllCartMedicines] = useState([]);
 
+  const [totalPrice, setTotalPrice] = useState(0);
+
   useFocusEffect(
     useCallback(() => {
       getCartMedicines();
@@ -57,6 +59,11 @@ const CheckOut = props => {
     if (myData) {
       let parsedData = JSON.parse(myData);
       setAllCartMedicines(parsedData);
+
+      //Getting Total Price of medicines in a cart
+      const TotalPrice = await AsyncStorage.getItem('TotalMedicinePriceInCart');
+      setTotalPrice(JSON.parse(TotalPrice) + 20 + 200);
+      console.log('Check total price: ' + TotalPrice);
     }
   };
 
@@ -138,6 +145,7 @@ const CheckOut = props => {
       <TertiaryHeader
         title="Check Out"
         onBackArrowPressed={props.onBackArrowPressed}
+        onCartImagePressed={props.onCartImagePressed}
       />
 
       <Modal
@@ -230,7 +238,7 @@ const CheckOut = props => {
                 <Text style={styles.totalChargesLabelText}>Total</Text>
                 <Text style={styles.chargesText}>
                   Rs.
-                  <Text style={styles.priceText}>4040</Text>
+                  <Text style={styles.priceText}>{totalPrice}</Text>
                 </Text>
               </View>
 

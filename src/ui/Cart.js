@@ -23,6 +23,7 @@ const cartData = [
 const Cart = props => {
   const [allCartMedicines, setAllCartMedicines] = useState([]);
   const [productCounterValue, setProductCounterValue] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -35,6 +36,27 @@ const Cart = props => {
     const myData = await AsyncStorage.getItem('combinedMedicine');
     if (myData) {
       let parsedData = JSON.parse(myData);
+
+      //Calculating total number of products in a cart
+      let TotalNumberOfProductsInCart = parsedData.length;
+      //Storing in AsyncStorage
+      await AsyncStorage.setItem(
+        'TotalNumberOfProductsInCart',
+        JSON.stringify(TotalNumberOfProductsInCart),
+      );
+
+      //Calculating total price of medicines in a cart
+      const TotalMedicinePriceInCart = parsedData.reduce((sum, parsedData) => {
+        return sum + Number(parsedData.pPrice);
+      }, 0);
+      setTotalPrice(TotalMedicinePriceInCart + 40 + 200);
+
+      //Storing in AsycnStorage
+      await AsyncStorage.setItem(
+        'TotalMedicinePriceInCart',
+        JSON.stringify(TotalMedicinePriceInCart),
+      );
+
       setAllCartMedicines(parsedData);
     }
   };
@@ -53,10 +75,6 @@ const Cart = props => {
     setProductCounterValue(prevVal => prevVal + 1);
   };
 
-  // const onCheckoutPressed = () => {
-  //   console.log('Checkout Pressed');
-  // };
-
   const renderCartItem = ({item}) => {
     return (
       <View style={{flexDirection: 'row', marginVertical: 5}}>
@@ -64,7 +82,6 @@ const Cart = props => {
           <Image style={styles.flatlistImage} source={item.pImage} />
         </View>
         <View style={styles.flatlistProductNameDetailsView}>
-          {/* {console.log('Items: ' + item)} */}
           <Text style={styles.flatlistProductNameText}>{item.pName}</Text>
 
           <View style={styles.detailsView}>
@@ -151,7 +168,7 @@ const Cart = props => {
                 <Text style={styles.chargesLabelText}>Total</Text>
                 <Text style={styles.chargesText}>
                   Rs.
-                  <Text style={styles.priceText}>4040</Text>
+                  <Text style={styles.priceText}>{totalPrice}</Text>
                 </Text>
               </View>
             </View>
