@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -24,14 +24,16 @@ import MinusIcon from 'react-native-vector-icons/Entypo';
 import {useAppNavitaion} from '../@types/AppNavigation';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
 
-const medicinesData = [
+let medicinesData = [
   {
     id: 1,
     totalNumberofProductsInCart: 0,
     totalAmountofProducts: 0,
     data: [
       {
+        totalNumberofProductsInCart: 0,
         productId: 1,
         image: require('../assests/images/medicine1.png'),
         name: 'O-ZEETINE Capsules 6/25MG',
@@ -47,6 +49,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        totalNumberofProductsInCart: 0,
         productId: 2,
         image: require('../assests/images/medicine6.png'),
         name: 'LIPITOR Tablets 10MG',
@@ -62,6 +65,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        totalNumberofProductsInCart: 0,
         productId: 3,
         image: require('../assests/images/medicine2.png'),
         name: 'CRESTOR Tablets 5MG',
@@ -77,6 +81,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        totalNumberofProductsInCart: 0,
         productId: 4,
         image: require('../assests/images/medicine3.png'),
         name: 'PRILOSEC Capsules 20MG',
@@ -92,6 +97,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        totalNumberofProductsInCart: 0,
         productId: 5,
         image: require('../assests/images/medicine4.png'),
         name: 'XANAX Tablets 0.25MG',
@@ -107,6 +113,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        totalNumberofProductsInCart: 0,
         productId: 6,
         image: require('../assests/images/medicine5.png'),
         name: 'PROZAC Capsules 20MG',
@@ -119,9 +126,15 @@ const medicinesData = [
 ];
 
 const ChooseMedicine = props => {
+  useFocusEffect(useCallback(() => {}, [checker]));
   const navigation = useAppNavitaion();
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
+
+  const [medicinesDataArray, setMedicinesDataArray] = useState(medicinesData);
+
+  const [checker, setChecker] = useState();
+  const [valCheck, setValCheck] = useState();
 
   const onFlatlistCartImagePressed = () => {
     setFlatlistCartImageOption(!flatlistCartImageOption);
@@ -147,6 +160,32 @@ const ChooseMedicine = props => {
     };
 
     //const onMinusPressed = () => {}
+    const onMinusPressed = id => {
+      setChecker(checker + 1);
+      medicinesData.map(item => {
+        if (item.data[0].productId == id) {
+          let newVal = (item.data[0].totalNumberofProductsInCart -= 1);
+          setValCheck(newVal);
+        } else {
+          console.log('Else entered');
+        }
+      });
+    };
+
+    const onPlusPressed = id => {
+      setChecker(checker + 1);
+      console.log('Id', id);
+      medicinesData.map(item => {
+        console.log('============');
+        console.log('pCart' + item.data[0].totalNumberofProductsInCart);
+        if (item.data[0].productId == id) {
+          let newVal = (item.data[0].totalNumberofProductsInCart += 1);
+          setValCheck(newVal);
+        } else {
+          console.log('Else entered');
+        }
+      });
+    };
 
     return (
       <View style={styles.flatListView}>
@@ -175,9 +214,7 @@ const ChooseMedicine = props => {
             />
 
             <MinusIcon
-              onPress={() =>
-                setCartProductNumberCount(cartProductNumberCount - 1)
-              }
+              onPress={() => onMinusPressed(item.productId)}
               style={{paddingHorizontal: 10}}
               name="minus"
               size={15}
@@ -185,13 +222,15 @@ const ChooseMedicine = props => {
             />
 
             <Text style={{color: '#667B99', fontSize: 13}}>
-              {cartProductNumberCount}
+              {console.log(
+                'item.totalNumberofProductsInCart: ',
+                item.totalNumberofProductsInCart,
+              )}
+              {item.totalNumberofProductsInCart}
             </Text>
 
             <PlusIcon
-              onPress={() =>
-                setCartProductNumberCount(cartProductNumberCount + 1)
-              }
+              onPress={() => onPlusPressed(item.productId)}
               style={{paddingHorizontal: 10}}
               name="plus"
               size={18}
