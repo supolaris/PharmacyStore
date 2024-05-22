@@ -66,14 +66,15 @@ const Cart = props => {
     }
   };
 
-  const onMinusPressed = () => {
-    setProductCounterValue(prevVal => {
-      if (prevVal > 1) {
-        return prevVal - 1;
-      } else {
-        return prevVal;
-      }
-    });
+  const onMinusPressed = itemId => {
+    console.log('first');
+    setCartProducts(prevItems =>
+      prevItems.map(item =>
+        item.pId === itemId
+          ? {...item, productCounterValue: item.productCounterValue - 1}
+          : item,
+      ),
+    );
   };
 
   const onPlusPressed = () => {
@@ -97,7 +98,7 @@ const Cart = props => {
               />
               <View style={styles.counterView}>
                 <MinusIcon
-                  onPress={onMinusPressed}
+                  onPress={() => onMinusPressed(item.pId)}
                   name="minus"
                   size={20}
                   color="#667B99"
@@ -148,7 +149,7 @@ const Cart = props => {
               <FlatList
                 data={allCartMedicines}
                 renderItem={renderCartItem}
-                keyExtractor={(item, index) => index.toString()}
+                keyExtractor={item => item.pId.toString()}
               />
               {/* <Text>sdfdsaf{allCartMedicines.Name}</Text> */}
             </View>
