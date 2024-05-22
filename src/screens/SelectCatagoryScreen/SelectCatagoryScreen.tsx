@@ -18,12 +18,16 @@ const SelectCatagoryScreen = () => {
   const onCartIconPressed = () => {
     navigation.navigate('Cart_Screen');
   };
+  const onMyOrdersPressed = () => {
+    navigation.navigate('Order_Screen');
+  };
 
   return (
     <SelectCatagory
       onBackArrowPressed={onBackArrowPressed}
       onCatagoryIconPressed={onCatagoryIconPressed}
       onCartIconPressed={onCartIconPressed}
+      onMyOrdersPressed={onMyOrdersPressed}
     />
   );
 };

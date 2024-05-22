@@ -13,6 +13,8 @@ import {PharmacyAppColors} from '../colors/Colors';
 
 import LinearGradient from 'react-native-linear-gradient';
 
+import {useAppNavitaion} from '../@types/AppNavigation';
+
 import TertiaryHeader from '../components/headers/TertiaryHeader';
 import PrimaryButton from '../components/common/PrimaryButton';
 import SecondaryButton from '../components/common/SecondaryButton';
@@ -24,6 +26,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CheckOut = props => {
+  const navigation = useAppNavitaion();
   const [productCounterValue, setProductCounterValue] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [allCartMedicines, setAllCartMedicines] = useState([]);
@@ -63,6 +66,10 @@ const CheckOut = props => {
 
   const onPlusPressed = () => {
     setProductCounterValue(prevVal => prevVal + 1);
+  };
+  const onModalButtonPressed = () => {
+    navigation.navigate('Order_Screen');
+    setShowModal(!showModal);
   };
 
   //let orderNumber = 1249267192;
@@ -226,7 +233,7 @@ const CheckOut = props => {
 
             <View style={{width: '60%'}}>
               <PrimaryButton
-                onPress={props.onModalButtonPressed}
+                onPress={onModalButtonPressed}
                 buttonText="Close"
               />
             </View>

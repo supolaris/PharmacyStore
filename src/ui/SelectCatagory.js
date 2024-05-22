@@ -131,7 +131,9 @@ const SelectCatagory = props => {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.orderView}>
+            <TouchableOpacity
+              style={styles.orderView}
+              onPress={props.onMyOrdersPressed}>
               <Image
                 style={{
                   height: 15,
@@ -147,7 +149,7 @@ const SelectCatagory = props => {
                 }}>
                 My Orders
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.catagoryHeadingView}>

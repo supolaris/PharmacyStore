@@ -12,14 +12,6 @@ import PlusIcon from 'react-native-vector-icons/Entypo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 
-const cartData = [
-  {
-    image: require('../assests/images/medicine1.png'),
-    name: 'O-ZEETINE Capsules 6/25MG',
-    price: '1900',
-  },
-];
-
 const Cart = props => {
   const [allCartMedicines, setAllCartMedicines] = useState([]);
   const [productCounterValue, setProductCounterValue] = useState(1);

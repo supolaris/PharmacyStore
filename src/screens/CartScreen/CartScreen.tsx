@@ -14,6 +14,7 @@ const CartScreen = () => {
   const onCheckoutPressed = () => {
     navigation.navigate('CheckOut_Screen');
   };
+
   return (
     <Cart
       onBackArrowPressed={onBackArrowPressed}
