@@ -32,6 +32,7 @@ const CheckOut = props => {
 
   useFocusEffect(
     useCallback(() => {
+      //AsyncStorage.removeItem('combinedMedicine');
       getCartMedicines();
     }, []),
   );
@@ -40,13 +41,13 @@ const CheckOut = props => {
     const myData = await AsyncStorage.getItem('combinedMedicine');
     if (myData) {
       parsedData = JSON.parse(myData);
-      console.log('Parsed Data:', parsedData);
+      //console.log('Parsed Data:', parsedData);
       setAllCartMedicines(parsedData);
 
       //Getting Total Price of medicines in a cart
       const TotalPrice = await AsyncStorage.getItem('TotalMedicinePriceInCart');
       setTotalPrice(JSON.parse(TotalPrice) + 20 + 200);
-      console.log('Check total price: ' + TotalPrice);
+      //console.log('Check total price: ' + TotalPrice);
     }
   };
 
@@ -64,9 +65,52 @@ const CheckOut = props => {
     setProductCounterValue(prevVal => prevVal + 1);
   };
 
-  let orderNumber = 1249267192;
+  //let orderNumber = 1249267192;
   const onCheckoutPressed = async () => {
     setShowModal(!showModal);
+
+    let newProductsparsedData;
+    const myData = await AsyncStorage.getItem('combinedMedicine');
+    if (myData) {
+      //console.log('New data' + myData);
+      newProductsparsedData = JSON.parse(myData);
+      //console.log('New Parsed data: ' + parsedData);
+      //objectsInArray = [parsedData]
+
+      let previousOrderDataList = await AsyncStorage.getItem('orderList');
+      console.log(
+        'Previous Order Data List: ' + JSON.parse(previousOrderDataList),
+      );
+
+      if (previousOrderDataList !== '' && previousOrderDataList !== null) {
+        const ParsedPreviousOrderDataList = JSON.parse(previousOrderDataList);
+
+        const combine = [...ParsedPreviousOrderDataList, newProductsparsedData];
+
+        const output = combine.map(item => {
+          if (Array.isArray(item)) {
+            return item.reduce((acc, curr, index) => {
+              acc[index] = curr;
+              return acc;
+            }, {});
+          }
+          return item;
+        });
+
+        console.log('OutPut: ' + JSON.stringify(output));
+        console.log('Combine order List', combine);
+
+        await AsyncStorage.setItem('completeOrderList', JSON.stringify(output));
+      }
+
+      await AsyncStorage.setItem(
+        'orderList',
+        JSON.stringify(newProductsparsedData),
+      );
+      let getOrderList = await AsyncStorage.getItem('orderList');
+      //console.log('OrderListData: ' + getOrderList);
+      AsyncStorage.removeItem('combinedMedicine');
+    }
   };
 
   const renderCartItem = ({item}) => {

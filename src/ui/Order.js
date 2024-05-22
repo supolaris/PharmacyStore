@@ -32,6 +32,9 @@ const ordersData = [
 const Order = props => {
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalProductsAmount, setTotalProductsAmount] = useState(0);
+  const [allOrders, setAllOrders] = useState([]);
+
+  const [productNumberAtIndex, setProductNumberAtIndex] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -39,18 +42,32 @@ const Order = props => {
     }, []),
   );
 
+  let numberOfObjectsAtIndexOne;
   const getCartOrderData = async () => {
     //Get total number of products
-    const TotalProducts = await AsyncStorage.getItem(
-      'TotalNumberOfProductsInCart',
-    );
-    setTotalProducts(JSON.parse(TotalProducts));
+    // const TotalProducts = await AsyncStorage.getItem(
+    //   'TotalNumberOfProductsInCart',
+    // );
+    // setTotalProducts(JSON.parse(TotalProducts));
 
-    //Get total amount of products
-    const TotalProductsAmount = await AsyncStorage.getItem(
-      'TotalMedicinePriceInCart',
-    );
-    setTotalProductsAmount(JSON.parse(TotalProductsAmount));
+    // //Get total amount of products
+    // const TotalProductsAmount = await AsyncStorage.getItem(
+    //   'TotalMedicinePriceInCart',
+    // );
+    // setTotalProductsAmount(JSON.parse(TotalProductsAmount));
+
+    let completeOrderList = await AsyncStorage.getItem('completeOrderList');
+
+    let nestedObject = completeOrderList[1];
+    // Get the number of objects in the nested object
+    numberOfObjectsAtIndexOne = Object.keys(nestedObject).length;
+    setProductNumberAtIndex(numberOfObjectsAtIndexOne);
+
+    console.log('number of products at index 1: ', numberOfObjectsAtIndexOne);
+
+    let parsedData = JSON.parse(completeOrderList);
+    setAllOrders(parsedData);
+    console.log('completeOrderList: ' + completeOrderList);
   };
 
   const renderOrderItem = ({item}) => {
@@ -83,7 +100,7 @@ const Order = props => {
             color: PharmacyAppColors.primaryTextColor,
             fontFamily: 'Satoshi-Regular',
           }}>
-          {item.orderId}
+          123-456-789
         </Text>
         <View
           style={{
@@ -91,7 +108,10 @@ const Order = props => {
             justifyContent: 'center',
             paddingTop: 8,
           }}>
-          <ItemAmountCard title={item.itemTitle} value={'x' + totalProducts} />
+          <ItemAmountCard
+            title={item.itemTitle}
+            value={'x' + productNumberAtIndex}
+          />
           <ItemAmountCard
             title={item.amountTitle}
             value={'Rs.' + totalProductsAmount}
@@ -120,7 +140,7 @@ const Order = props => {
         <View style={styles.innerView}>
           <View style={{flex: 3}}>
             <FlatList
-              data={ordersData}
+              data={allOrders}
               renderItem={renderOrderItem}
               keyExtractor={(item, index) => index.toString()}
             />
