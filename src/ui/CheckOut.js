@@ -35,11 +35,12 @@ const CheckOut = props => {
       getCartMedicines();
     }, []),
   );
-
+  let parsedData;
   const getCartMedicines = async () => {
     const myData = await AsyncStorage.getItem('combinedMedicine');
     if (myData) {
-      let parsedData = JSON.parse(myData);
+      parsedData = JSON.parse(myData);
+      console.log('Parsed Data:', parsedData);
       setAllCartMedicines(parsedData);
 
       //Getting Total Price of medicines in a cart
@@ -63,7 +64,8 @@ const CheckOut = props => {
     setProductCounterValue(prevVal => prevVal + 1);
   };
 
-  const onCheckoutPressed = () => {
+  let orderNumber = 1249267192;
+  const onCheckoutPressed = async () => {
     setShowModal(!showModal);
   };
 

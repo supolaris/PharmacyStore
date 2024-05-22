@@ -147,17 +147,17 @@ const ImageDescription = props => {
 
       if (previousMedicineData !== '' && previousMedicineData !== null) {
         const parsed = JSON.parse(previousMedicineData);
-        console.log('============');
-        console.log('CartMedicine: ' + parsed);
-        console.log('ProductDetails: ' + productDetails);
-        console.log('============');
+        // console.log('============');
+        // console.log('CartMedicine: ' + parsed);
+        // console.log('ProductDetails: ' + productDetails);
+        // console.log('============');
 
         const combine = [...parsed, productDetails];
-        console.log('combine' + combine);
+        //console.log('combine' + combine);
 
         await AsyncStorage.setItem('combinedMedicine', JSON.stringify(combine));
         const combinedAsync = await AsyncStorage.getItem('combinedMedicine');
-        console.log('CombinedAsyn', combinedAsync);
+        //console.log('CombinedAsyn', combinedAsync);
         navigation.navigate('Cart_Screen');
       } else {
         setMedicineArray([]);
