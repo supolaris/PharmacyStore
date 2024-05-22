@@ -32,6 +32,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        productId: 1,
         image: require('../assests/images/medicine1.png'),
         name: 'O-ZEETINE Capsules 6/25MG',
         price: '1900',
@@ -46,6 +47,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        productId: 2,
         image: require('../assests/images/medicine6.png'),
         name: 'LIPITOR Tablets 10MG',
         price: '1900',
@@ -60,6 +62,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        productId: 3,
         image: require('../assests/images/medicine2.png'),
         name: 'CRESTOR Tablets 5MG',
         price: '2100',
@@ -74,6 +77,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        productId: 4,
         image: require('../assests/images/medicine3.png'),
         name: 'PRILOSEC Capsules 20MG',
         price: '2100',
@@ -88,6 +92,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        productId: 5,
         image: require('../assests/images/medicine4.png'),
         name: 'XANAX Tablets 0.25MG',
         price: '1900',
@@ -102,6 +107,7 @@ const medicinesData = [
     totalAmountofProducts: 0,
     data: [
       {
+        productId: 6,
         image: require('../assests/images/medicine5.png'),
         name: 'PROZAC Capsules 20MG',
         price: '2100',
@@ -125,7 +131,10 @@ const ChooseMedicine = props => {
   const renderMedicine = ({item}) => {
     const medicineSelectionPressed = async () => {
       try {
-        //await AsyncStorage.setItem('MedicineId', JSON.stringify(item.id));
+        await AsyncStorage.setItem(
+          'MedicineId',
+          JSON.stringify(item.productId),
+        );
         await AsyncStorage.setItem('MedicineImage', JSON.stringify(item.image));
         await AsyncStorage.setItem('MedicineName', item.name);
         await AsyncStorage.setItem('MedicinePrice', item.price);
@@ -136,6 +145,8 @@ const ChooseMedicine = props => {
         console.error('Error storing image:', error);
       }
     };
+
+    //const onMinusPressed = () => {}
 
     return (
       <View style={styles.flatListView}>

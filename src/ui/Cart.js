@@ -22,6 +22,7 @@ const Cart = props => {
   useFocusEffect(
     useCallback(() => {
       //AsyncStorage.removeItem('combinedMedicine');
+      console.log('allCartMedicines ' + JSON.stringify(allCartMedicines));
       getCartMedicines();
     }, []),
   );
@@ -60,6 +61,8 @@ const Cart = props => {
 
   const onMinusPressed = itemId => {
     console.log('first');
+    console.log('item id' + itemId);
+    console.log('cart Products ' + JSON.stringify(cartProducts));
     setCartProducts(prevItems =>
       prevItems.map(item =>
         item.pId === itemId
@@ -141,7 +144,7 @@ const Cart = props => {
               <FlatList
                 data={allCartMedicines}
                 renderItem={renderCartItem}
-                keyExtractor={item => item.pId.toString()}
+                keyExtractor={item => item.pId}
               />
               {/* <Text>sdfdsaf{allCartMedicines.Name}</Text> */}
             </View>
