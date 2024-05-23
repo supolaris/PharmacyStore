@@ -16,6 +16,8 @@ const Cart = props => {
   const [allCartMedicines, setAllCartMedicines] = useState([]);
   const [productCounterValue, setProductCounterValue] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [totalNumberOfOneMedicinesNumber, setTotalNumberOfOneMedicinesNumber] =
+    useState(0);
 
   const [cartProducts, setCartProducts] = useState([]);
 
@@ -51,10 +53,22 @@ const Cart = props => {
       }, 0);
       setTotalPrice(TotalMedicinePriceInCart + 40 + 200);
 
-      //Storing in AsycnStorage
+      //Storing total price in AsycnStorage
       await AsyncStorage.setItem(
         'TotalMedicinePriceInCart',
         JSON.stringify(TotalMedicinePriceInCart),
+      );
+
+      //Calculating total number of one medicine in a cart
+      const TotalMedicineNumverInCart = parsedData.reduce((sum, parsedData) => {
+        return sum + Number(parsedData.pNoOfProducts);
+      }, 0);
+      setTotalNumberOfOneMedicinesNumber(TotalMedicineNumverInCart);
+
+      console.log('TotalMedicineNumverInCart', TotalMedicineNumverInCart);
+      console.log(
+        'setTotalNumberOfOneMedicinesNumber',
+        totalNumberOfOneMedicinesNumber,
       );
 
       setAllCartMedicines(parsedData);
@@ -62,10 +76,7 @@ const Cart = props => {
   };
 
   const onMinusPressed = id => {
-    console.log('minus');
-    console.log('Minus Product id: ', id);
     allCartMedicines.map(item => {
-      console.log('Minus Medicine Data', item);
       if (item.pId == id) {
         let currentVal = JSON.parse(item.pNoOfProducts);
         if (currentVal > 0) {
@@ -78,10 +89,7 @@ const Cart = props => {
   };
 
   const onPlusPressed = id => {
-    console.log('Plus');
-    console.log('Plus Product id: ', id);
     allCartMedicines.map(item => {
-      console.log('Plus Medicine Data', item);
       if (item.pId == id) {
         let pNoOfProductsVal = JSON.parse(item.pNoOfProducts);
         let newVal = (pNoOfProductsVal += 1);
@@ -186,6 +194,9 @@ const Cart = props => {
                 <Text style={styles.chargesText}>
                   Rs.
                   <Text style={styles.priceText}>{totalPrice}</Text>
+                </Text>
+                <Text style={styles.priceText}>
+                  {totalNumberOfOneMedicinesNumber}
                 </Text>
               </View>
             </View>
