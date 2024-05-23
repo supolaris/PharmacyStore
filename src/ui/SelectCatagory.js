@@ -27,32 +27,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useContext} from 'react';
 import {MyContext} from '../context/useContext';
 
-const catagoryCardData = [
-  {
-    title: 'Digestive System',
-    image: require('../assests/images/catagoryImages/catagoryBackgroundImage1.png'),
-  },
-  {
-    title: 'Cardio Vascular',
-    image: require('../assests/images/catagoryImages/catagoryBackgroundImage2.png'),
-  },
-  {
-    title: 'Nervous System',
-    image: require('../assests/images/catagoryImages/catagoryBackgroundImage3.png'),
-  },
-  {
-    title: 'Neurological',
-    image: require('../assests/images/catagoryImages/catagoryBackgroundImage4.png'),
-  },
-  {
-    title: 'Stomach Ache',
-    image: require('../assests/images/catagoryImages/catagoryBackgroundImage5.png'),
-  },
-  {
-    title: 'Pelvic',
-    image: require('../assests/images/catagoryImages/catagoryBackgroundImage6.png'),
-  },
-];
+import {MedicineProductCatagory} from '../assests/data/medicineProductCatagory';
 
 const SelectCatagory = props => {
   const navigation = useAppNavitaion();
@@ -157,7 +132,7 @@ const SelectCatagory = props => {
           </View>
 
           <FlatList
-            data={catagoryCardData}
+            data={MedicineProductCatagory}
             numColumns={2}
             renderItem={renderCatagoryCardData}
             keyExtractor={(item, index) => index.toString()}

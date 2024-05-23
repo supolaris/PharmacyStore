@@ -25,28 +25,7 @@ import FlatListIconActive from 'react-native-vector-icons/FontAwesome';
 import FlatListIconInActive from 'react-native-vector-icons/FontAwesome';
 import {MyContext} from '../context/useContext';
 
-const citiesData = [
-  {
-    id: 1,
-    name: 'Islamabad',
-  },
-  {
-    id: 2,
-    name: 'Lahore',
-  },
-  {
-    id: 3,
-    name: 'Peshawar',
-  },
-  {
-    id: 4,
-    name: 'Rawalpindi',
-  },
-  {
-    id: 5,
-    name: 'Karachi',
-  },
-];
+import {CitiesData} from '../assests/data/cititeData';
 
 const SelectCity = props => {
   const navigation = useAppNavitaion();
@@ -127,7 +106,7 @@ const SelectCity = props => {
             <PrimaryTextInput placeholder="Search City" />
           </View>
           <FlatList
-            data={citiesData}
+            data={CitiesData}
             renderItem={renderCitties}
             keyExtractor={item => item.id.toString()}
           />

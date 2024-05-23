@@ -1,7 +1,6 @@
 export let MedicineProducts = [
   {
     id: 1,
-    totalNumberofProductsInCart: 0,
     totalAmountofProducts: 0,
     data: [
       {
@@ -17,7 +16,6 @@ export let MedicineProducts = [
   },
   {
     id: 2,
-    totalNumberofProductsInCart: 0,
     totalAmountofProducts: 0,
     data: [
       {
@@ -33,7 +31,6 @@ export let MedicineProducts = [
   },
   {
     id: 3,
-    totalNumberofProductsInCart: 0,
     totalAmountofProducts: 0,
     data: [
       {
@@ -49,7 +46,6 @@ export let MedicineProducts = [
   },
   {
     id: 4,
-    totalNumberofProductsInCart: 0,
     totalAmountofProducts: 0,
     data: [
       {
@@ -65,7 +61,6 @@ export let MedicineProducts = [
   },
   {
     id: 5,
-    totalNumberofProductsInCart: 0,
     totalAmountofProducts: 0,
     data: [
       {
@@ -81,7 +76,6 @@ export let MedicineProducts = [
   },
   {
     id: 6,
-    totalNumberofProductsInCart: 0,
     totalAmountofProducts: 0,
     data: [
       {
