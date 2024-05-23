@@ -24,6 +24,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {useFocusEffect} from '@react-navigation/native';
 
+import {MedicineProducts} from '../assests/data/medicineProducts';
+
 const medicinesData = [
   {
     id: 1,
@@ -214,7 +216,7 @@ const ImageDescription = props => {
     setFlatlistCartImageOption(!flatlistCartImageOption);
   };
 
-  const flattenedData = medicinesData.flatMap(item => item.data);
+  const flattenedData = MedicineProducts.flatMap(item => item.data);
   const renderMedicine = ({item}) => {
     const medicineSelectionPressed = async () => {
       try {
@@ -232,6 +234,28 @@ const ImageDescription = props => {
       } catch (error) {
         console.error('Error storing image:', error);
       }
+    };
+
+    const onMinusPressed = id => {
+      MedicineProducts.map(item => {
+        if (item.data[0].productId == id) {
+          let currentVal = item.data[0].totalNumberofProductsInCart;
+          if (currentVal > 0) {
+            let newVal = currentVal - 1;
+            item.data[0].totalNumberofProductsInCart = newVal;
+            setValCheck(newVal);
+          }
+        }
+      });
+    };
+
+    const onPlusPressed = id => {
+      MedicineProducts.map(item => {
+        if (item.data[0].productId == id) {
+          let newVal = (item.data[0].totalNumberofProductsInCart += 1);
+          setValCheck(newVal);
+        }
+      });
     };
 
     return (

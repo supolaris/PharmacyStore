@@ -24,7 +24,7 @@ import MinusIcon from 'react-native-vector-icons/Entypo';
 import {useAppNavitaion} from '../@types/AppNavigation';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect} from '@react-navigation/native';
+import {MedicineProducts} from '../assests/data/medicineProducts';
 
 let medicinesData = [
   {
@@ -126,20 +126,15 @@ let medicinesData = [
 ];
 
 const ChooseMedicine = props => {
-  //useFocusEffect(useCallback(() => {}, [checker]));
   const navigation = useAppNavitaion();
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
-  const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
 
-  const [medicinesDataArray, setMedicinesDataArray] = useState(medicinesData);
-
-  const [checker, setChecker] = useState();
   const [valCheck, setValCheck] = useState();
 
   const onFlatlistCartImagePressed = () => {
     setFlatlistCartImageOption(!flatlistCartImageOption);
   };
-  const flattenedData = medicinesData.flatMap(item => item.data);
+  const flattenedData = MedicineProducts.flatMap(item => item.data);
 
   const renderMedicine = ({item}) => {
     const medicineSelectionPressed = async () => {
@@ -160,8 +155,7 @@ const ChooseMedicine = props => {
     };
 
     const onMinusPressed = id => {
-      //setChecker(checker + 1);
-      medicinesData.map(item => {
+      MedicineProducts.map(item => {
         if (item.data[0].productId == id) {
           let currentVal = item.data[0].totalNumberofProductsInCart;
           if (currentVal > 0) {
@@ -174,8 +168,7 @@ const ChooseMedicine = props => {
     };
 
     const onPlusPressed = id => {
-      //setChecker(checker + 1);
-      medicinesData.map(item => {
+      MedicineProducts.map(item => {
         if (item.data[0].productId == id) {
           let newVal = (item.data[0].totalNumberofProductsInCart += 1);
           setValCheck(newVal);
