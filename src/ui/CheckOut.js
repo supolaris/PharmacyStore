@@ -33,6 +33,11 @@ const CheckOut = props => {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const [valCheck, setValCheck] = useState();
+
+  const [totalPriceOfProductsInCart, setTotalPriceOfProductsInCart] =
+    useState();
+
   useFocusEffect(
     useCallback(() => {
       //AsyncStorage.removeItem('combinedMedicine');
@@ -54,19 +59,49 @@ const CheckOut = props => {
     }
   };
 
-  const onMinusPressed = () => {
-    setProductCounterValue(prevVal => {
-      if (prevVal > 1) {
-        return prevVal - 1;
-      } else {
-        return prevVal;
+  const onMinusPressed = id => {
+    allCartMedicines.map(item => {
+      if (item.pId == id) {
+        let currentVal = JSON.parse(item.pNoOfProducts);
+        if (currentVal > 0) {
+          let newVal = currentVal - 1;
+          item.pNoOfProducts = JSON.stringify(newVal);
+
+          // Calculating total price
+          let productPrice = JSON.parse(item.pPrice);
+          let totalProducts = JSON.parse(item.pNoOfProducts);
+          let priceMultiplyNumber = productPrice * totalProducts;
+          setTotalPriceOfProductsInCart(priceMultiplyNumber);
+
+          setValCheck(newVal);
+        }
       }
     });
   };
 
-  const onPlusPressed = () => {
-    setProductCounterValue(prevVal => prevVal + 1);
+  const onPlusPressed = id => {
+    allCartMedicines.map(item => {
+      if (item.pId == id) {
+        console.log('Item ', item);
+        let pNoOfProductsVal = JSON.parse(item.pNoOfProducts);
+        let newVal = (pNoOfProductsVal += 1);
+        item.pNoOfProducts = JSON.stringify(pNoOfProductsVal);
+
+        // Calculating total price
+        let productPrice = JSON.parse(item.pPrice);
+        let totalProducts = JSON.parse(item.pNoOfProducts);
+        let priceMultiplyNumber = productPrice * totalProducts;
+        let gstPrice = 40;
+        let deliverCharges = 200;
+        setTotalPriceOfProductsInCart(
+          priceMultiplyNumber + gstPrice + deliverCharges,
+        );
+
+        setValCheck(newVal);
+      }
+    });
   };
+
   const onModalButtonPressed = () => {
     navigation.navigate('Order_Screen');
     setShowModal(!showModal);
@@ -137,18 +172,18 @@ const CheckOut = props => {
               />
               <View style={styles.counterView}>
                 <MinusIcon
-                  onPress={onMinusPressed}
+                  onPress={() => onMinusPressed(item.pId)}
                   name="minus"
                   size={20}
                   color="#667B99"
                 />
 
                 <Text style={styles.productCounterValueText}>
-                  {productCounterValue}
+                  {item.pNoOfProducts}
                 </Text>
 
                 <PlusIcon
-                  onPress={onPlusPressed}
+                  onPress={() => onPlusPressed(item.pId)}
                   name="plus"
                   size={20}
                   color="#667B99"
@@ -159,7 +194,7 @@ const CheckOut = props => {
             <View style={styles.productCounterValuePriceView}>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.productPriceText}>
-                  {productCounterValue}x
+                  {item.pNoOfProducts}x
                 </Text>
 
                 <Text style={styles.productPriceText}>Rs {item.pPrice}/-</Text>
@@ -273,7 +308,9 @@ const CheckOut = props => {
                 <Text style={styles.totalChargesLabelText}>Total</Text>
                 <Text style={styles.chargesText}>
                   Rs.
-                  <Text style={styles.priceText}>{totalPrice}</Text>
+                  <Text style={styles.priceText}>
+                    {totalPriceOfProductsInCart}
+                  </Text>
                 </Text>
               </View>
 
