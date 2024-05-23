@@ -41,6 +41,10 @@ const ChooseMedicine = props => {
     const medicineSelectionPressed = async () => {
       try {
         await AsyncStorage.setItem(
+          'MedicineNumberOfProductsInCart',
+          JSON.stringify(item.totalNumberofProductsInCart),
+        );
+        await AsyncStorage.setItem(
           'MedicineId',
           JSON.stringify(item.productId),
         );

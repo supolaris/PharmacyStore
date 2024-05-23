@@ -4,7 +4,7 @@ export let MedicineProducts = [
     totalAmountofProducts: 0,
     data: [
       {
-        totalNumberofProductsInCart: 0,
+        totalNumberofProductsInCart: 1,
         productId: 1,
         image: require('../../assests/images/medicine1.png'),
         name: 'O-ZEETINE Capsules 6/25MG',
@@ -19,7 +19,7 @@ export let MedicineProducts = [
     totalAmountofProducts: 0,
     data: [
       {
-        totalNumberofProductsInCart: 0,
+        totalNumberofProductsInCart: 1,
         productId: 2,
         image: require('../../assests/images/medicine6.png'),
         name: 'LIPITOR Tablets 10MG',
@@ -34,7 +34,7 @@ export let MedicineProducts = [
     totalAmountofProducts: 0,
     data: [
       {
-        totalNumberofProductsInCart: 0,
+        totalNumberofProductsInCart: 1,
         productId: 3,
         image: require('../../assests/images/medicine2.png'),
         name: 'CRESTOR Tablets 5MG',
@@ -49,7 +49,7 @@ export let MedicineProducts = [
     totalAmountofProducts: 0,
     data: [
       {
-        totalNumberofProductsInCart: 0,
+        totalNumberofProductsInCart: 1,
         productId: 4,
         image: require('../../assests/images/medicine3.png'),
         name: 'PRILOSEC Capsules 20MG',
@@ -64,7 +64,7 @@ export let MedicineProducts = [
     totalAmountofProducts: 0,
     data: [
       {
-        totalNumberofProductsInCart: 0,
+        totalNumberofProductsInCart: 1,
         productId: 5,
         image: require('../../assests/images/medicine4.png'),
         name: 'XANAX Tablets 0.25MG',
@@ -79,7 +79,7 @@ export let MedicineProducts = [
     totalAmountofProducts: 0,
     data: [
       {
-        totalNumberofProductsInCart: 0,
+        totalNumberofProductsInCart: 1,
         productId: 6,
         image: require('../../assests/images/medicine5.png'),
         name: 'PROZAC Capsules 20MG',

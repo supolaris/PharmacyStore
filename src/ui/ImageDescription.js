@@ -30,6 +30,7 @@ const ImageDescription = props => {
   const [screenRender, setScreenRender] = useState(1);
   const navigation = useAppNavitaion();
 
+  const [medicineNumberOfProducts, setMedicineNumberOfProducts] = useState();
   const [medicineId, setMedicineId] = useState();
   const [medicineImage, setImage] = useState();
   const [medicineName, setMedicineName] = useState();
@@ -48,12 +49,16 @@ const ImageDescription = props => {
     }, [screenRender]),
   );
 
+  let storedMedicineNumberOfProducts;
   let storedMedicineId;
   let storedMedicineImage;
   let storedMedicineName;
   let storedMedicinePrice;
   let storedMedicineDescription;
   const getMedicineData = async () => {
+    storedMedicineNumberOfProducts = await AsyncStorage.getItem(
+      'MedicineNumberOfProductsInCart',
+    );
     storedMedicineId = await AsyncStorage.getItem('MedicineId');
     storedMedicineImage = await AsyncStorage.getItem('MedicineImage');
     storedMedicineName = await AsyncStorage.getItem('MedicineName');
@@ -61,6 +66,7 @@ const ImageDescription = props => {
     storedMedicineDescription = await AsyncStorage.getItem(
       'MedicineDescription',
     );
+    setMedicineNumberOfProducts(storedMedicineNumberOfProducts);
     setMedicineId(storedMedicineId);
     setImage(storedMedicineImage);
     setMedicineName(storedMedicineName);
@@ -69,6 +75,7 @@ const ImageDescription = props => {
   };
 
   let productDetails = {
+    pNoOfProducts: '',
     pId: '',
     pImage: '',
     pName: '',
@@ -85,6 +92,7 @@ const ImageDescription = props => {
       medicineDescription
     ) {
       productDetails = {
+        pNoOfProducts: medicineNumberOfProducts,
         pId: medicineId,
         pImage: medicineImage,
         pName: medicineName,
@@ -130,6 +138,10 @@ const ImageDescription = props => {
         await AsyncStorage.setItem(
           'MedicineId',
           JSON.stringify(item.productId),
+        );
+        await AsyncStorage.setItem(
+          'MedicineNumberOfProductsInCart',
+          JSON.stringify(item.totalNumberofProductsInCart),
         );
         await AsyncStorage.setItem('MedicineImage', JSON.stringify(item.image));
         await AsyncStorage.setItem('MedicineName', item.name);
@@ -252,7 +264,6 @@ const ImageDescription = props => {
                   source={require('../assests/images/cartVector.png')}
                 />
                 <Text style={styles.addToCartText}>Add to cart</Text>
-                {/* <Text>{medicineDetails.Name}</Text> */}
               </TouchableOpacity>
             </View>
             <Text style={styles.descriptionText}>{medicineDescription}</Text>

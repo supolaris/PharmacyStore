@@ -19,6 +19,8 @@ const Cart = props => {
 
   const [cartProducts, setCartProducts] = useState([]);
 
+  const [valCheck, setValCheck] = useState();
+
   useFocusEffect(
     useCallback(() => {
       //AsyncStorage.removeItem('combinedMedicine');
@@ -59,21 +61,35 @@ const Cart = props => {
     }
   };
 
-  const onMinusPressed = itemId => {
-    console.log('first');
-    console.log('item id' + itemId);
-    console.log('cart Products ' + JSON.stringify(cartProducts));
-    setCartProducts(prevItems =>
-      prevItems.map(item =>
-        item.pId === itemId
-          ? {...item, productCounterValue: item.productCounterValue - 1}
-          : item,
-      ),
-    );
+  const onMinusPressed = id => {
+    console.log('minus');
+    console.log('Minus Product id: ', id);
+    allCartMedicines.map(item => {
+      console.log('Minus Medicine Data', item);
+      // if (item.data[0].productId == id) {
+      //   let currentVal = item.data[0].totalNumberofProductsInCart;
+      //   if (currentVal > 0) {
+      //     let newVal = currentVal - 1;
+      //     item.data[0].totalNumberofProductsInCart = newVal;
+      //     setValCheck(newVal);
+      //   }
+      // }
+    });
   };
 
-  const onPlusPressed = () => {
-    setProductCounterValue(prevVal => prevVal + 1);
+  const onPlusPressed = id => {
+    console.log('Plus');
+    console.log('Plus Product id: ', id);
+    allCartMedicines.map(item => {
+      console.log('Plus Medicine Data', item);
+      if (item.pId == id) {
+        let pNoOfProductsVal = JSON.parse(item.pNoOfProducts);
+        let newVal = (pNoOfProductsVal += 1);
+        item.pNoOfProducts = JSON.stringify(pNoOfProductsVal);
+
+        setValCheck(newVal);
+      }
+    });
   };
 
   const renderCartItem = ({item}) => {
@@ -100,11 +116,11 @@ const Cart = props => {
                 />
 
                 <Text style={styles.productCounterValueText}>
-                  {productCounterValue}
+                  {item.pNoOfProducts}
                 </Text>
 
                 <PlusIcon
-                  onPress={onPlusPressed}
+                  onPress={() => onPlusPressed(item.pId)}
                   name="plus"
                   size={20}
                   color="#667B99"
@@ -115,7 +131,7 @@ const Cart = props => {
             <View style={styles.productCounterValuePriceView}>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.productPriceText}>
-                  {productCounterValue}x
+                  {item.pNoOfProducts}x
                 </Text>
 
                 <Text style={styles.productPriceText}>Rs {item.pPrice}/-</Text>
