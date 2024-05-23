@@ -26,98 +26,98 @@ import {useFocusEffect} from '@react-navigation/native';
 
 import {MedicineProducts} from '../assests/data/medicineProducts';
 
-const medicinesData = [
-  {
-    id: 1,
-    totalNumberofProductsInCart: 0,
-    totalAmountofProducts: 0,
-    data: [
-      {
-        id: 1,
-        image: require('../assests/images/medicine1.png'),
-        name: 'O-ZEETINE Capsules 6/25MG',
-        price: '1900',
-        description:
-          'A product that provides a guaranteed level of life takaful protection against death, of the Participant.',
-      },
-    ],
-  },
-  {
-    id: 2,
-    totalNumberofProductsInCart: 0,
-    totalAmountofProducts: 0,
-    data: [
-      {
-        id: 2,
-        image: require('../assests/images/medicine6.png'),
-        name: 'LIPITOR Tablets 10MG',
-        price: '1900',
-        description:
-          'LIPITOR Tablets 10MG - A medication that helps manage cholesterol levels in patients.',
-      },
-    ],
-  },
-  {
-    id: 3,
-    totalNumberofProductsInCart: 0,
-    totalAmountofProducts: 0,
-    data: [
-      {
-        id: 3,
-        image: require('../assests/images/medicine2.png'),
-        name: 'CRESTOR Tablets 5MG',
-        price: '2100',
-        description:
-          'CRESTOR Tablets 5MG - A treatment used to lower bad cholesterol and fats in the blood.',
-      },
-    ],
-  },
-  {
-    id: 4,
-    totalNumberofProductsInCart: 0,
-    totalAmountofProducts: 0,
-    data: [
-      {
-        id: 4,
-        image: require('../assests/images/medicine3.png'),
-        name: 'PRILOSEC Capsules 20MG',
-        price: '2100',
-        description:
-          'PRILOSEC Capsules 20MG - A drug that treats frequent heartburn and acid reflux.',
-      },
-    ],
-  },
-  {
-    id: 5,
-    totalNumberofProductsInCart: 0,
-    totalAmountofProducts: 0,
-    data: [
-      {
-        id: 5,
-        image: require('../assests/images/medicine4.png'),
-        name: 'XANAX Tablets 0.25MG',
-        price: '1900',
-        description:
-          'XANAX Tablets 0.25MG - A prescription medicine used to treat anxiety disorders.',
-      },
-    ],
-  },
-  {
-    id: 6,
-    totalNumberofProductsInCart: 0,
-    totalAmountofProducts: 0,
-    data: [
-      {
-        id: 6,
-        image: require('../assests/images/medicine5.png'),
-        name: 'PROZAC Capsules 20MG',
-        price: '2100',
-        description:
-          'PROZAC Capsules 20MG - An antidepressant used to treat major depressive disorder.',
-      },
-    ],
-  },
-];
+// const medicinesData = [
+//   {
+//     id: 1,
+//     totalNumberofProductsInCart: 0,
+//     totalAmountofProducts: 0,
+//     data: [
+//       {
+//         id: 1,
+//         image: require('../assests/images/medicine1.png'),
+//         name: 'O-ZEETINE Capsules 6/25MG',
+//         price: '1900',
+//         description:
+//           'A product that provides a guaranteed level of life takaful protection against death, of the Participant.',
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     totalNumberofProductsInCart: 0,
+//     totalAmountofProducts: 0,
+//     data: [
+//       {
+//         id: 2,
+//         image: require('../assests/images/medicine6.png'),
+//         name: 'LIPITOR Tablets 10MG',
+//         price: '1900',
+//         description:
+//           'LIPITOR Tablets 10MG - A medication that helps manage cholesterol levels in patients.',
+//       },
+//     ],
+//   },
+//   {
+//     id: 3,
+//     totalNumberofProductsInCart: 0,
+//     totalAmountofProducts: 0,
+//     data: [
+//       {
+//         id: 3,
+//         image: require('../assests/images/medicine2.png'),
+//         name: 'CRESTOR Tablets 5MG',
+//         price: '2100',
+//         description:
+//           'CRESTOR Tablets 5MG - A treatment used to lower bad cholesterol and fats in the blood.',
+//       },
+//     ],
+//   },
+//   {
+//     id: 4,
+//     totalNumberofProductsInCart: 0,
+//     totalAmountofProducts: 0,
+//     data: [
+//       {
+//         id: 4,
+//         image: require('../assests/images/medicine3.png'),
+//         name: 'PRILOSEC Capsules 20MG',
+//         price: '2100',
+//         description:
+//           'PRILOSEC Capsules 20MG - A drug that treats frequent heartburn and acid reflux.',
+//       },
+//     ],
+//   },
+//   {
+//     id: 5,
+//     totalNumberofProductsInCart: 0,
+//     totalAmountofProducts: 0,
+//     data: [
+//       {
+//         id: 5,
+//         image: require('../assests/images/medicine4.png'),
+//         name: 'XANAX Tablets 0.25MG',
+//         price: '1900',
+//         description:
+//           'XANAX Tablets 0.25MG - A prescription medicine used to treat anxiety disorders.',
+//       },
+//     ],
+//   },
+//   {
+//     id: 6,
+//     totalNumberofProductsInCart: 0,
+//     totalAmountofProducts: 0,
+//     data: [
+//       {
+//         id: 6,
+//         image: require('../assests/images/medicine5.png'),
+//         name: 'PROZAC Capsules 20MG',
+//         price: '2100',
+//         description:
+//           'PROZAC Capsules 20MG - An antidepressant used to treat major depressive disorder.',
+//       },
+//     ],
+//   },
+// ];
 
 const ImageDescription = props => {
   const [screenRender, setScreenRender] = useState(1);
@@ -133,6 +133,7 @@ const ImageDescription = props => {
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
 
   const [medicineArray, setMedicineArray] = useState([]);
+  const [valCheck, setValCheck] = useState();
 
   useFocusEffect(
     useCallback(() => {
@@ -237,6 +238,7 @@ const ImageDescription = props => {
     };
 
     const onMinusPressed = id => {
+      console.log('minus');
       MedicineProducts.map(item => {
         if (item.data[0].productId == id) {
           let currentVal = item.data[0].totalNumberofProductsInCart;
@@ -250,6 +252,7 @@ const ImageDescription = props => {
     };
 
     const onPlusPressed = id => {
+      console.log('Plus');
       MedicineProducts.map(item => {
         if (item.data[0].productId == id) {
           let newVal = (item.data[0].totalNumberofProductsInCart += 1);
@@ -284,9 +287,7 @@ const ImageDescription = props => {
             />
 
             <MinusIcon
-              onPress={() =>
-                setCartProductNumberCount(cartProductNumberCount - 1)
-              }
+              onPress={() => onMinusPressed(item.productId)}
               style={{paddingHorizontal: 10}}
               name="minus"
               size={15}
@@ -294,13 +295,15 @@ const ImageDescription = props => {
             />
 
             <Text style={{color: '#667B99', fontSize: 13}}>
-              {cartProductNumberCount}
+              {console.log(
+                'item.totalNumberofProductsInCart: ',
+                item.totalNumberofProductsInCart,
+              )}
+              {item.totalNumberofProductsInCart}
             </Text>
 
             <PlusIcon
-              onPress={() =>
-                setCartProductNumberCount(cartProductNumberCount + 1)
-              }
+              onPress={() => onPlusPressed(item.productId)}
               style={{paddingHorizontal: 10}}
               name="plus"
               size={18}
