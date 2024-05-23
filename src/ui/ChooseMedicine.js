@@ -126,7 +126,7 @@ let medicinesData = [
 ];
 
 const ChooseMedicine = props => {
-  useFocusEffect(useCallback(() => {}, [checker]));
+  //useFocusEffect(useCallback(() => {}, [checker]));
   const navigation = useAppNavitaion();
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
   const [cartProductNumberCount, setCartProductNumberCount] = useState(1);
@@ -161,28 +161,21 @@ const ChooseMedicine = props => {
 
     //const onMinusPressed = () => {}
     const onMinusPressed = id => {
-      setChecker(checker + 1);
+      //setChecker(checker + 1);
       medicinesData.map(item => {
         if (item.data[0].productId == id) {
           let newVal = (item.data[0].totalNumberofProductsInCart -= 1);
           setValCheck(newVal);
-        } else {
-          console.log('Else entered');
         }
       });
     };
 
     const onPlusPressed = id => {
-      setChecker(checker + 1);
-      console.log('Id', id);
+      //setChecker(checker + 1);
       medicinesData.map(item => {
-        console.log('============');
-        console.log('pCart' + item.data[0].totalNumberofProductsInCart);
         if (item.data[0].productId == id) {
           let newVal = (item.data[0].totalNumberofProductsInCart += 1);
           setValCheck(newVal);
-        } else {
-          console.log('Else entered');
         }
       });
     };

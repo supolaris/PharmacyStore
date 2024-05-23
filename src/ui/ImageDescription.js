@@ -190,10 +190,6 @@ const ImageDescription = props => {
 
       if (previousMedicineData !== '' && previousMedicineData !== null) {
         const parsed = JSON.parse(previousMedicineData);
-        // console.log('============');
-        // console.log('CartMedicine: ' + parsed);
-        // console.log('ProductDetails: ' + productDetails);
-        // console.log('============');
 
         const combine = [...parsed, productDetails];
         //console.log('combine' + combine);
@@ -212,13 +208,6 @@ const ImageDescription = props => {
     } catch (error) {
       console.log('Error ' + error);
     }
-
-    // console.log('=============');
-    // console.log('getdata: ' + productDetails.pImage);
-    // console.log('getdata Name: ' + productDetails.pName);
-    // console.log('getdata Price: ' + productDetails.pPrice);
-    // console.log('getdata Description: ' + productDetails.pDescription);
-    //navigation.navigate('Cart_Screen');
   };
 
   const onFlatlistCartImagePressed = () => {
