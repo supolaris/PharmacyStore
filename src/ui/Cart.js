@@ -66,14 +66,14 @@ const Cart = props => {
     console.log('Minus Product id: ', id);
     allCartMedicines.map(item => {
       console.log('Minus Medicine Data', item);
-      // if (item.data[0].productId == id) {
-      //   let currentVal = item.data[0].totalNumberofProductsInCart;
-      //   if (currentVal > 0) {
-      //     let newVal = currentVal - 1;
-      //     item.data[0].totalNumberofProductsInCart = newVal;
-      //     setValCheck(newVal);
-      //   }
-      // }
+      if (item.pId == id) {
+        let currentVal = JSON.parse(item.pNoOfProducts);
+        if (currentVal > 0) {
+          let newVal = currentVal - 1;
+          item.pNoOfProducts = JSON.stringify(newVal);
+          setValCheck(newVal);
+        }
+      }
     });
   };
 
