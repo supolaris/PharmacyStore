@@ -32,6 +32,8 @@ const ChooseMedicine = props => {
 
   const [valCheck, setValCheck] = useState();
 
+  const [selectedCartId, setSelectedCartId] = useState();
+
   const onFlatlistCartImagePressed = () => {
     setFlatlistCartImageOption(!flatlistCartImageOption);
   };
@@ -87,51 +89,68 @@ const ChooseMedicine = props => {
           <Image style={styles.flatListMedicineImage} source={item.image} />
         </TouchableOpacity>
 
-        {!flatlistCartImageOption ? (
-          <Pressable
-            style={styles.flatlistCartPressable}
-            onPress={onFlatlistCartImagePressed}>
-            <Image
-              style={styles.flatlistCartImage}
-              source={require('../assests/images/cartVector.png')}
-            />
-          </Pressable>
-        ) : (
-          <Pressable
-            style={[
-              styles.flatlistCartPressable,
-              {flexDirection: 'row', left: '40%', alignItems: 'center'},
-            ]}>
-            <Image
-              style={styles.flatlistCartImage}
-              source={require('../assests/images/cartVector.png')}
-            />
+        <Pressable onPress={() => setSelectedCartId(item.productId)}>
+          {selectedCartId === item.productId ? (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 148,
+                right: 10,
+                backgroundColor: PharmacyAppColors.white,
+                padding: 8,
+                borderRadius: 100,
+                borderWidth: 0.5,
+                borderColor: '#9BA6A7',
+                flexDirection: 'row',
+              }}>
+              <Image
+                style={styles.flatlistCartImage}
+                source={require('../assests/images/cartVector.png')}
+              />
 
-            <MinusIcon
-              onPress={() => onMinusPressed(item.productId)}
-              style={{paddingHorizontal: 10}}
-              name="minus"
-              size={15}
-              color="#667B99"
-            />
+              <MinusIcon
+                onPress={() => onMinusPressed(item.productId)}
+                style={{paddingHorizontal: 10}}
+                name="minus"
+                size={15}
+                color="#667B99"
+              />
 
-            <Text style={{color: '#667B99', fontSize: 13}}>
-              {console.log(
-                'item.totalNumberofProductsInCart: ',
-                item.totalNumberofProductsInCart,
-              )}
-              {item.totalNumberofProductsInCart}
-            </Text>
+              <Text style={{color: '#667B99', fontSize: 13}}>
+                {console.log(
+                  'item.totalNumberofProductsInCart: ',
+                  item.totalNumberofProductsInCart,
+                )}
+                {item.totalNumberofProductsInCart}
+              </Text>
 
-            <PlusIcon
-              onPress={() => onPlusPressed(item.productId)}
-              style={{paddingHorizontal: 10}}
-              name="plus"
-              size={18}
-              color="#667B99"
-            />
-          </Pressable>
-        )}
+              <PlusIcon
+                onPress={() => onPlusPressed(item.productId)}
+                style={{paddingHorizontal: 10}}
+                name="plus"
+                size={18}
+                color="#667B99"
+              />
+            </View>
+          ) : (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 148,
+                right: 10,
+                backgroundColor: PharmacyAppColors.white,
+                padding: 8,
+                borderRadius: 100,
+                borderWidth: 0.5,
+                borderColor: '#9BA6A7',
+              }}>
+              <Image
+                style={styles.flatlistCartImage}
+                source={require('../assests/images/cartVector.png')}
+              />
+            </View>
+          )}
+        </Pressable>
 
         <Text style={styles.flatListMedicineNameText}>{item.name}</Text>
         <Text style={styles.flatListMedicinePriceText}>Rs {item.price}/-</Text>
