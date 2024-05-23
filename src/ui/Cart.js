@@ -23,6 +23,9 @@ const Cart = props => {
 
   const [valCheck, setValCheck] = useState();
 
+  const [totalPriceOfProductsInCart, setTotalPriceOfProductsInCart] =
+    useState();
+
   useFocusEffect(
     useCallback(() => {
       //AsyncStorage.removeItem('combinedMedicine');
@@ -82,6 +85,13 @@ const Cart = props => {
         if (currentVal > 0) {
           let newVal = currentVal - 1;
           item.pNoOfProducts = JSON.stringify(newVal);
+
+          // Calculating total price
+          let productPrice = JSON.parse(item.pPrice);
+          let totalProducts = JSON.parse(item.pNoOfProducts);
+          let priceMultiplyNumber = productPrice * totalProducts;
+          setTotalPriceOfProductsInCart(priceMultiplyNumber);
+
           setValCheck(newVal);
         }
       }
@@ -91,9 +101,20 @@ const Cart = props => {
   const onPlusPressed = id => {
     allCartMedicines.map(item => {
       if (item.pId == id) {
+        console.log('Item ', item);
         let pNoOfProductsVal = JSON.parse(item.pNoOfProducts);
         let newVal = (pNoOfProductsVal += 1);
         item.pNoOfProducts = JSON.stringify(pNoOfProductsVal);
+
+        // Calculating total price
+        let productPrice = JSON.parse(item.pPrice);
+        let totalProducts = JSON.parse(item.pNoOfProducts);
+        let priceMultiplyNumber = productPrice * totalProducts;
+        let gstPrice = 40;
+        let deliverCharges = 200;
+        setTotalPriceOfProductsInCart(
+          priceMultiplyNumber + gstPrice + deliverCharges,
+        );
 
         setValCheck(newVal);
       }
@@ -193,10 +214,9 @@ const Cart = props => {
                 <Text style={styles.chargesLabelText}>Total</Text>
                 <Text style={styles.chargesText}>
                   Rs.
-                  <Text style={styles.priceText}>{totalPrice}</Text>
-                </Text>
-                <Text style={styles.priceText}>
-                  {totalNumberOfOneMedicinesNumber}
+                  <Text style={styles.priceText}>
+                    {totalPriceOfProductsInCart}
+                  </Text>
                 </Text>
               </View>
             </View>
