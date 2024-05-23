@@ -159,13 +159,16 @@ const ChooseMedicine = props => {
       }
     };
 
-    //const onMinusPressed = () => {}
     const onMinusPressed = id => {
       //setChecker(checker + 1);
       medicinesData.map(item => {
         if (item.data[0].productId == id) {
-          let newVal = (item.data[0].totalNumberofProductsInCart -= 1);
-          setValCheck(newVal);
+          let currentVal = item.data[0].totalNumberofProductsInCart;
+          if (currentVal > 0) {
+            let newVal = currentVal - 1;
+            item.data[0].totalNumberofProductsInCart = newVal;
+            setValCheck(newVal);
+          }
         }
       });
     };
