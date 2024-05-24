@@ -38,31 +38,25 @@ const Cart = props => {
     const myData = await AsyncStorage.getItem('combinedMedicine');
     if (myData) {
       let parsedData = JSON.parse(myData);
-      //console.log('first', parsedData);
       setCartProducts(parsedData);
       console.log('cartProducts', cartProducts);
 
-      //Calculating total number of products in a cart
       let TotalNumberOfProductsInCart = parsedData.length;
-      //Storing in AsyncStorage
       await AsyncStorage.setItem(
         'TotalNumberOfProductsInCart',
         JSON.stringify(TotalNumberOfProductsInCart),
       );
 
-      //Calculating total price of medicines in a cart
       const TotalMedicinePriceInCart = parsedData.reduce((sum, parsedData) => {
         return sum + Number(parsedData.pPrice);
       }, 0);
       setTotalPrice(TotalMedicinePriceInCart + 40 + 200);
 
-      //Storing total price in AsycnStorage
       await AsyncStorage.setItem(
         'TotalMedicinePriceInCart',
         JSON.stringify(TotalMedicinePriceInCart),
       );
 
-      //Calculating total number of one medicine in a cart
       const TotalMedicineNumverInCart = parsedData.reduce((sum, parsedData) => {
         return sum + Number(parsedData.pNoOfProducts);
       }, 0);
@@ -79,7 +73,7 @@ const Cart = props => {
   };
 
   const onMinusPressed = id => {
-    let totalPriceOfAllProducts = 0; // Initialize total price
+    let totalPriceOfAllProducts = 0;
 
     allCartMedicines.map(item => {
       if (item.pId == id) {
@@ -88,7 +82,6 @@ const Cart = props => {
           let newVal = currentVal - 1;
           item.pNoOfProducts = JSON.stringify(newVal);
 
-          // Calculating total price for the current item
           let productPrice = JSON.parse(item.pPrice);
           let totalProducts = JSON.parse(item.pNoOfProducts);
           let priceMultiplyNumber = productPrice * totalProducts;
@@ -97,18 +90,16 @@ const Cart = props => {
         }
       }
 
-      // Add the price of the current item to the total price
       let itemProductPrice = JSON.parse(item.pPrice);
       let itemTotalProducts = JSON.parse(item.pNoOfProducts);
       totalPriceOfAllProducts += itemProductPrice * itemTotalProducts;
     });
 
-    // Set the accumulated total price
     setTotalPriceOfProductsInCart(totalPriceOfAllProducts);
   };
 
   const onPlusPressed = id => {
-    let totalPriceOfAllProducts = 0; // Initialize total price
+    let totalPriceOfAllProducts = 0;
 
     allCartMedicines.map(item => {
       if (item.pId == id) {
@@ -120,18 +111,15 @@ const Cart = props => {
         setValCheck(newVal);
       }
 
-      // Add the price of the current item to the total price
       let productPrice = JSON.parse(item.pPrice);
       let totalProducts = JSON.parse(item.pNoOfProducts);
       totalPriceOfAllProducts += productPrice * totalProducts;
     });
 
-    // Add GST and delivery charges
     let gstPrice = 40;
     let deliverCharges = 200;
     let finalTotalPrice = totalPriceOfAllProducts + gstPrice + deliverCharges;
 
-    // Set the accumulated total price
     setTotalPriceOfProductsInCart(finalTotalPrice);
   };
 

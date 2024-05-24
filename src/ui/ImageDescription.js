@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -123,11 +123,9 @@ const ImageDescription = props => {
             );
             updatedCart = parsed;
           } else {
-            // Product does not exist, add it to the cart
             updatedCart = [...parsed, productDetails];
           }
         } else {
-          // No previous data, add the product to the cart
           updatedCart = [productDetails];
         }
 

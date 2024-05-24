@@ -112,7 +112,7 @@ const CheckOut = props => {
   };
 
   const onMinusPressed = id => {
-    let totalPriceOfAllProducts = 0; // Initialize total price
+    let totalPriceOfAllProducts = 0;
 
     allCartMedicines.map(item => {
       if (item.pId == id) {
@@ -121,7 +121,6 @@ const CheckOut = props => {
           let newVal = currentVal - 1;
           item.pNoOfProducts = JSON.stringify(newVal);
 
-          // Calculating total price for the current item
           let productPrice = JSON.parse(item.pPrice);
           let totalProducts = JSON.parse(item.pNoOfProducts);
           let priceMultiplyNumber = productPrice * totalProducts;
@@ -130,18 +129,16 @@ const CheckOut = props => {
         }
       }
 
-      // Add the price of the current item to the total price
       let itemProductPrice = JSON.parse(item.pPrice);
       let itemTotalProducts = JSON.parse(item.pNoOfProducts);
       totalPriceOfAllProducts += itemProductPrice * itemTotalProducts;
     });
 
-    // Set the accumulated total price
     setTotalPriceOfProductsInCart(totalPriceOfAllProducts);
   };
 
   const onPlusPressed = id => {
-    let totalPriceOfAllProducts = 0; // Initialize total price
+    let totalPriceOfAllProducts = 0;
 
     allCartMedicines.map(item => {
       if (item.pId == id) {
@@ -152,18 +149,15 @@ const CheckOut = props => {
         setValCheck(newVal);
       }
 
-      // Add the price of the current item to the total price
       let productPrice = JSON.parse(item.pPrice);
       let totalProducts = JSON.parse(item.pNoOfProducts);
       totalPriceOfAllProducts += productPrice * totalProducts;
     });
 
-    // Add GST and delivery charges
     let gstPrice = 40;
     let deliverCharges = 200;
     let finalTotalPrice = totalPriceOfAllProducts + gstPrice + deliverCharges;
 
-    // Set the accumulated total price
     setTotalPriceOfProductsInCart(finalTotalPrice);
   };
 
