@@ -9,6 +9,7 @@ import {
   Pressable,
   TouchableOpacity,
   ScrollView,
+  Modal,
 } from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
@@ -25,12 +26,14 @@ import {useAppNavitaion} from '../@types/AppNavigation';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MedicineProducts} from '../assests/data/medicineProducts';
+import PrimaryButton from '../components/common/PrimaryButton';
 
 const ChooseMedicine = props => {
   const navigation = useAppNavitaion();
   const [flatlistCartImageOption, setFlatlistCartImageOption] = useState(false);
 
   const [valCheck, setValCheck] = useState();
+  const [footerShow, setFooterShow] = useState(false);
 
   const [selectedCartId, setSelectedCartId] = useState();
 
@@ -89,7 +92,11 @@ const ChooseMedicine = props => {
           <Image style={styles.flatListMedicineImage} source={item.image} />
         </TouchableOpacity>
 
-        <Pressable onPress={() => setSelectedCartId(item.productId)}>
+        <Pressable
+          onPress={() => {
+            setSelectedCartId(item.productId);
+            setFooterShow(true);
+          }}>
           {selectedCartId === item.productId ? (
             <View
               style={{
@@ -159,11 +166,12 @@ const ChooseMedicine = props => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar
         backgroundColor={PharmacyAppColors.headerColor}
         barStyle="dark-content"
       />
+
       <View>
         <SecondaryHeader
           title="Pharmacy Store"
@@ -189,8 +197,26 @@ const ChooseMedicine = props => {
             contentContainerStyle={styles.flatListContent}
           />
         </View>
+        {footerShow === true ? (
+          <View
+            style={{
+              backgroundColor: 'white',
+              paddingHorizontal: 20,
+              paddingTop: 20,
+              paddingBottom: 30,
+              elevation: 80,
+              shadowColor: 'black',
+            }}>
+            <PrimaryButton
+              buttonText="Open Cart"
+              onPress={props.onFooterCartPressed}
+            />
+          </View>
+        ) : (
+          <View></View>
+        )}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -208,6 +234,7 @@ const styles = StyleSheet.create({
     backgroundColor: PharmacyAppColors.white,
   },
   innerView: {
+    // backgroundColor: 'red',
     flex: 1,
     paddingTop: 20,
     paddingHorizontal: 30,
