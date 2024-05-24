@@ -93,7 +93,7 @@ const ImageDescription = props => {
       medicinePrice &&
       medicineDescription
     ) {
-      productDetails = {
+      const productDetails = {
         pNoOfProducts: medicineNumberOfProducts,
         pId: medicineId,
         pImage: medicineImage,
@@ -101,31 +101,45 @@ const ImageDescription = props => {
         pPrice: medicinePrice,
         pDescription: medicineDescription,
       };
-    }
-    try {
-      const previousMedicineData = await AsyncStorage.getItem(
-        'combinedMedicine',
-      );
 
-      if (previousMedicineData !== '' && previousMedicineData !== null) {
-        const parsed = JSON.parse(previousMedicineData);
+      try {
+        const previousMedicineData = await AsyncStorage.getItem(
+          'combinedMedicine',
+        );
 
-        const combine = [...parsed, productDetails];
-        //console.log('combine' + combine);
+        let updatedCart = [];
 
-        await AsyncStorage.setItem('combinedMedicine', JSON.stringify(combine));
-        const combinedAsync = await AsyncStorage.getItem('combinedMedicine');
-        //console.log('CombinedAsyn', combinedAsync);
+        if (previousMedicineData !== '' && previousMedicineData !== null) {
+          const parsed = JSON.parse(previousMedicineData);
+
+          const existingProductIndex = parsed.findIndex(
+            item => item.pId === medicineId,
+          );
+
+          if (existingProductIndex !== -1) {
+            // Product exists, update the count
+            parsed[existingProductIndex].pNoOfProducts = JSON.stringify(
+              JSON.parse(parsed[existingProductIndex].pNoOfProducts) +
+                medicineNumberOfProducts,
+            );
+            updatedCart = parsed;
+          } else {
+            // Product does not exist, add it to the cart
+            updatedCart = [...parsed, productDetails];
+          }
+        } else {
+          // No previous data, add the product to the cart
+          updatedCart = [productDetails];
+        }
+
+        await AsyncStorage.setItem(
+          'combinedMedicine',
+          JSON.stringify(updatedCart),
+        );
         navigation.navigate('Cart_Screen');
-      } else {
-        setMedicineArray([]);
-        const combine = [...medicineArray, productDetails];
-        await AsyncStorage.setItem('combinedMedicine', JSON.stringify(combine));
-        navigation.navigate('Cart_Screen');
+      } catch (error) {
+        console.log('Error ' + error);
       }
-      //navigation.navigate('Cart_Screen');
-    } catch (error) {
-      console.log('Error ' + error);
     }
   };
 

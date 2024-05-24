@@ -112,8 +112,8 @@ const CheckOut = props => {
   };
 
   const onMinusPressed = id => {
-    console.log('dfkj');
-    console.log('allCartMedicines', allCartMedicines);
+    let totalPriceOfAllProducts = 0; // Initialize total price
+
     allCartMedicines.map(item => {
       if (item.pId == id) {
         let currentVal = JSON.parse(item.pNoOfProducts);
@@ -121,39 +121,50 @@ const CheckOut = props => {
           let newVal = currentVal - 1;
           item.pNoOfProducts = JSON.stringify(newVal);
 
-          // Calculating total price
+          // Calculating total price for the current item
           let productPrice = JSON.parse(item.pPrice);
           let totalProducts = JSON.parse(item.pNoOfProducts);
           let priceMultiplyNumber = productPrice * totalProducts;
-          setTotalPriceOfProductsInCart(priceMultiplyNumber);
 
           setValCheck(newVal);
         }
       }
+
+      // Add the price of the current item to the total price
+      let itemProductPrice = JSON.parse(item.pPrice);
+      let itemTotalProducts = JSON.parse(item.pNoOfProducts);
+      totalPriceOfAllProducts += itemProductPrice * itemTotalProducts;
     });
+
+    // Set the accumulated total price
+    setTotalPriceOfProductsInCart(totalPriceOfAllProducts);
   };
 
   const onPlusPressed = id => {
+    let totalPriceOfAllProducts = 0; // Initialize total price
+
     allCartMedicines.map(item => {
       if (item.pId == id) {
         console.log('Item ', item);
         let pNoOfProductsVal = JSON.parse(item.pNoOfProducts);
         let newVal = (pNoOfProductsVal += 1);
         item.pNoOfProducts = JSON.stringify(pNoOfProductsVal);
-
-        // Calculating total price
-        let productPrice = JSON.parse(item.pPrice);
-        let totalProducts = JSON.parse(item.pNoOfProducts);
-        let priceMultiplyNumber = productPrice * totalProducts;
-        let gstPrice = 40;
-        let deliverCharges = 200;
-        setTotalPriceOfProductsInCart(
-          priceMultiplyNumber + gstPrice + deliverCharges,
-        );
-
         setValCheck(newVal);
       }
+
+      // Add the price of the current item to the total price
+      let productPrice = JSON.parse(item.pPrice);
+      let totalProducts = JSON.parse(item.pNoOfProducts);
+      totalPriceOfAllProducts += productPrice * totalProducts;
     });
+
+    // Add GST and delivery charges
+    let gstPrice = 40;
+    let deliverCharges = 200;
+    let finalTotalPrice = totalPriceOfAllProducts + gstPrice + deliverCharges;
+
+    // Set the accumulated total price
+    setTotalPriceOfProductsInCart(finalTotalPrice);
   };
 
   const renderCartItem = ({item}) => {
@@ -309,7 +320,9 @@ const CheckOut = props => {
                 <Text style={styles.totalChargesLabelText}>Total</Text>
                 <Text style={styles.chargesText}>
                   Rs.
-                  <Text style={styles.priceText}>{totalPrice}</Text>
+                  <Text style={styles.priceText}>
+                    {totalPriceOfProductsInCart}
+                  </Text>
                 </Text>
               </View>
 
