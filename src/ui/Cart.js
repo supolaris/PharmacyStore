@@ -1,5 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, StyleSheet, StatusBar, Image, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Image,
+  FlatList,
+  Alert,
+} from 'react-native';
 
 import {PharmacyAppColors} from '../colors/Colors';
 
@@ -188,11 +196,29 @@ const Cart = props => {
         <View style={styles.innerView}>
           <View style={{flex: 3}}>
             <View style={styles.flatListView}>
-              <FlatList
-                data={allCartMedicines}
-                renderItem={renderCartItem}
-                keyExtractor={item => item.pId}
-              />
+              {allCartMedicines == '' || allCartMedicines == null ? (
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    flex: 1,
+                  }}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      fontSize: 20,
+                      fontFamily: 'Satoshi-Bold',
+                    }}>
+                    Your cart is empty
+                  </Text>
+                </View>
+              ) : (
+                <FlatList
+                  data={allCartMedicines}
+                  renderItem={renderCartItem}
+                  keyExtractor={item => item.pId}
+                />
+              )}
+
               {/* <Text>sdfdsaf{allCartMedicines.Name}</Text> */}
             </View>
             <View style={styles.belowFlatlistView}>
@@ -226,7 +252,17 @@ const Cart = props => {
           <View style={{flex: 1}}>
             <PrimaryButton
               buttonText="Check Out"
-              onPress={props.onCheckoutPressed}
+              onPress={() => {
+                if (allCartMedicines == '' || allCartMedicines == null) {
+                  Alert.alert(
+                    'Empty Cart',
+                    'Please add products before proceeding to checkout',
+                  );
+                } else {
+                  console.log('first');
+                  props.onCheckoutPressed();
+                }
+              }}
             />
           </View>
         </View>
