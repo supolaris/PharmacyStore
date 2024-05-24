@@ -117,10 +117,9 @@ const ImageDescription = props => {
           );
 
           if (existingProductIndex !== -1) {
-            // Product exists, update the count
             parsed[existingProductIndex].pNoOfProducts = JSON.stringify(
               JSON.parse(parsed[existingProductIndex].pNoOfProducts) +
-                medicineNumberOfProducts,
+                JSON.parse(medicineNumberOfProducts),
             );
             updatedCart = parsed;
           } else {
@@ -143,10 +142,6 @@ const ImageDescription = props => {
     }
   };
 
-  const onFlatlistCartImagePressed = () => {
-    setFlatlistCartImageOption(!flatlistCartImageOption);
-  };
-
   const flattenedData = MedicineProducts.flatMap(item => item.data);
   const renderMedicine = ({item}) => {
     const medicineSelectionPressed = async () => {
@@ -165,7 +160,6 @@ const ImageDescription = props => {
         await AsyncStorage.setItem('MedicineDescription', item.description);
         console.log('Data stored successfully');
         setScreenRender(screenRender + 1);
-        //navigation.navigate('ImageDescription_Screen');
       } catch (error) {
         console.error('Error storing image:', error);
       }
